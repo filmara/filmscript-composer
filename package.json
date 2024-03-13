@@ -1,6 +1,7 @@
 {
-  "name": "",
+  "name": "fountain-editor",
   "private": true,
+  "version": "0.0.2",
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -8,7 +9,8 @@
     "dev": "remix vite:dev",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "tauri": "tauri"
   },
   "dependencies": {
     "@remix-run/node": "^2.8.1",
@@ -18,6 +20,7 @@
   },
   "devDependencies": {
     "@remix-run/dev": "^2.8.1",
+    "@tauri-apps/cli": "^1.5.11",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.7.4",
