@@ -61,10 +61,19 @@ export class FountainParser {
         src.forEach(line => {
             // Title Page
             if (FountainParser.regex.title_page.test(line)) {
-                match = line.replace(FountainParser.regex.title_page, '\n$1').split(FountainParser.regex.splitter).reverse();
-                match.forEach(part => {
-                    parts = part.replace(FountainParser.regex.cleaner, '').split(/\:\n*/);
-                    tokens.push({ type: parts[0].trim().toLowerCase().replace(' ', '_'), text: parts[1].trim() });
+                // Split the entire title page section into individual elements
+                let titlePageElements = line.split(FountainParser.regex.splitter);
+            
+                titlePageElements.forEach(titleElement => {
+                    // Split each element into key-value pairs
+                    parts = titleElement.split(/\:\n*/);
+            
+                    if (parts.length === 2) {
+                        let key = parts[0].trim().toLowerCase().replace(/ /g, '_');
+                        let value = parts[1].trim();
+            
+                        tokens.push({ type: 'title_page_' + key, text: value });
+                    }
                 });
                 return;
             }
@@ -171,6 +180,31 @@ export class FountainParser {
         });
 
         return tokens;
+    }
+
+    public parseToHTML(): string {
+        const elements = this.parse();
+        return elements.map(el => this.elementToHTML(el)).join('');
+    }
+
+    private elementToHTML(el: FountainElement): string {
+        switch (el.type) {
+            case 'scene_heading':
+                return `<h3>${el.text}</h3>`;
+            case 'action':
+                return `<div class="action"><p>${el.text}</p></div>`;
+            case 'character':
+                return `<h4>${el.text}</h4>`;
+            case 'dialogue':
+                return `<div class="dialogue"><p>${el.text}</p></div>`;
+            case 'parenthetical':
+                return `<div class="parenthetical"><p>${el.text}</p></div>`;
+            case 'transition':
+                return `<p class="transition">${el.text}</p>`;
+            // Add more cases for different types
+            default:
+                return `<div>${el.text}</div>`;
+        }
     }
 
     private processEmphasis(text: string): string {

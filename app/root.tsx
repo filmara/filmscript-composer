@@ -5,6 +5,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import styleUrl from '~/assets/style.css?url';
+
+export const links = () => {
+  return [{ rel: 'stylesheet', href: "https://use.typekit.net/vkh2lev.css" },
+  { rel: 'stylesheet', href: styleUrl }];
+};
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
