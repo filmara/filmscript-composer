@@ -1,4 +1,4 @@
-
+/* Start: deprecated styles */
 .flex-container {
     display: flex;
     align-items: flex-start; /* Align items to the start of the container */
@@ -11,8 +11,12 @@
     font-family: 'Courier New', Courier, monospace; /* or your preferred font for screenplay */
 }
 
-/* Add additional styling here for different screenplay elements like scene_heading, dialogue, etc. */
+.text-editor {
+    height: 100vh;
+    width: 40vw;
+}
 
+/* END: deprecated styles */
 
 .screenplay {
     margin: 0;
@@ -122,11 +126,6 @@
 .title-page-contact,
 .title-page-copyright {
     margin-bottom: 10px;
-}
-
-.text-editor {
-    height: 100vh;
-    width: 40vw;
 }
 
 .bold {
