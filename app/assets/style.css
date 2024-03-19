@@ -1,0 +1,166 @@
+/* Start: deprecated styles */
+.flex-container {
+    display: flex;
+    align-items: flex-start; /* Align items to the start of the container */
+}
+
+.medium-editor {
+    border: 1px solid #ccc;
+    min-height: 100px; /* Adjust as needed */
+    padding: 10px;
+    font-family: 'Courier New', Courier, monospace; /* or your preferred font for screenplay */
+}
+
+.text-editor {
+    height: 100vh;
+    width: 40vw;
+}
+
+/* END: deprecated styles */
+
+.screenplay {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    overflow-y: hidden;
+    vertical-align: baseline;
+}
+
+.screenplay {
+    display: block;
+}
+
+
+/* Styles for Screenplain */
+
+.screenplay {
+    margin: auto;
+    width: 60vw;
+    text-align: left;
+    font-family: "courier-std", monospace;
+    font-size: 12pt;
+    padding: 0pt 0 0 0pt;
+    position: static;
+}
+
+.screenplay ::selection {
+    caret-color: blue; /* or any color you prefer */
+}
+
+.screenplay>header {
+    margin-bottom: 1em;
+    border-bottom: 1px solid black;
+}
+
+.screenplay>footer {
+    margin-top: 1em;
+}
+
+.screenplay>em {
+    font-style: italic;
+}
+
+.screenplay>p .bold {
+    font-weight: bold;
+}
+
+.screenplay>br {
+    clear: both;
+}
+
+.screenplay>div.action p {
+    margin-top: 1em;
+}
+
+
+/* Dialogue */
+
+.screenplay>.dialogue h4 {
+    text-align: center;
+    color: var(--bright-yellow) !important;
+    font-weight: 500 !important;
+    font-size: 18px !important;
+}
+
+.screenplay>.dialogue p {
+    text-align: left;
+    margin-left: 20%;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.screenplay>.dialogue .parenthetical {
+    padding-left: 10%;
+}
+
+
+/* Headers */
+
+.screenplay>h3 {
+    margin-top: 2em;
+    text-transform: uppercase;
+    font-weight: bold !important;
+    color: var(--text-accent) !important;
+}
+
+.screenplay>.note {
+    font-style: italic;
+    color: grey;
+    margin: 10px 0;
+}
+
+.character.dual,
+.dialogue.dual {
+    display: inline-block;
+    width: 50%;
+    /* Adjust the width as needed */
+    vertical-align: top;
+}
+
+.title-page-title,
+.title-page-author,
+.title-page-credit,
+.title-page-source,
+.title-page-draft_date,
+.title-page-date,
+.title-page-contact,
+.title-page-copyright {
+    margin-bottom: 10px;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+.italic {
+    font-style: italic;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.bold.italic {
+    font-weight: bold;
+    font-style: italic;
+}
+
+.bold.underline {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.italic.underline {
+    font-style: italic;
+    text-decoration: underline;
+}
+
+.bold.italic.underline {
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+}
