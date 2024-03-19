@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import { FountainParser, FountainElement } from '../utils/FountainParser';
-import { BaseEditor, Descendant, Node, createEditor } from 'slate';
-import { ReactEditor, Slate, Editable, withReact, RenderElementProps } from 'slate-react';
+import { BaseEditor, Descendant, Node, createEditor, Editor, Transforms } from 'slate';
+import { ReactEditor, Slate, Editable, withReact, RenderElementProps, useSlateStatic, } from 'slate-react';
 
 type CustomElement = {
     type: 'paragraph' | 'scene_heading' | 'character' | 'transition' | 'action' | 'parenthetical'
@@ -11,13 +11,13 @@ type CustomElement = {
 
 type CustomText = { text: string };
 
-declare module 'slate' {
-    interface CustomTypes {
-        Editor: BaseEditor & ReactEditor;
-        Element: CustomElement;
-        Text: CustomText;
-    }
-}
+// declare module 'slate' {
+//     interface CustomTypes {
+//         Editor: BaseEditor & ReactEditor;
+//         Element: CustomElement;
+//         Text: CustomText;
+//     }
+// }
 
 // Convert FountainElement to Slate Node
 const fountainElementToSlateNode = (element: FountainElement): Descendant => {
@@ -139,9 +139,51 @@ const FountainEditor: React.FC = () => {
 
     return (
         <Slate editor={editor} initialValue={value} onChange={handleChange}>
+            <Toolbar />
             <Editable className="screenplay" renderElement={renderElement} disableDefaultStyles={true} />
         </Slate>
     );
 };
 
+const Toolbar: React.FC = () => {
+    const editor = useSlateStatic();
+  
+    const setNodeType = (type: 'scene_heading' | 'dialogue') => {
+        const [match] = Editor.nodes(editor, {
+            match: n => {
+                return Node.isNode(n)
+            },
+        });
+  
+      if (match) {
+        Transforms.setNodes(
+          editor,
+          { type: type },
+          { at: editor.selection ?? undefined }
+        );
+      }
+    };
+  
+    return (
+      <div>
+        <button 
+          onMouseDown={e => {
+            e.preventDefault();
+            setNodeType('scene_heading');
+          }}
+        >
+          Scene Heading
+        </button>
+        <button 
+          onMouseDown={e => {
+            e.preventDefault();
+            setNodeType('dialogue');
+          }}
+        >
+          Dialogue
+        </button>
+      </div>
+    );
+  };
+  
 export { FountainEditor };

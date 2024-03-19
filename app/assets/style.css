@@ -45,6 +45,10 @@
     position: static;
 }
 
+.screenplay ::selection {
+    caret-color: blue; /* or any color you prefer */
+}
+
 .screenplay>header {
     margin-bottom: 1em;
     border-bottom: 1px solid black;

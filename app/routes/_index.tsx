@@ -1,6 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
-// import { Editor } from '~/components/Editor';
-import { FountainEditor } from '~/components/FountainEditor';
+import { Editor } from '~/components/Editor';
+import { FountainEditor } from '~/components/FountainEditorV2';
+import { SlateEditor } from '~/components/SlateEditor';
 
 export const meta: MetaFunction = () => {
   return [
@@ -12,7 +13,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div>
-      {/* <Editor /> */}
+      {/* <SlateEditor /> */}
       <FountainEditor />
     </div>
   );
