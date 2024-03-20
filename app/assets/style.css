@@ -29,7 +29,7 @@ body {
     background-color: #2d2d2d;
     outline: none;
     margin: 20px;
-    padding: 20px;
+    padding:  20px 20px 20px 74px;
     border: 0;
     font-size: 100%;
     font: inherit;
@@ -67,23 +67,26 @@ body {
     clear: both;
 }
 
-.screenplay>div.action p {
+.screenplay>.action {
     margin-top: 1em;
+    display: block;
 }
 
+.screenplay>.character {
+    padding-left: 222px;
+    text-transform: uppercase;
+    display: block;
+    width: 100%
+}
 
 /* Dialogue */
 
-.screenplay>.dialogue h4 {
-    text-align: center;
+.screenplay>.dialogue {
+    padding-left: 148px;
     color: var(--bright-yellow) !important;
     font-weight: 500 !important;
     font-size: 18px !important;
-}
-
-.screenplay>.dialogue p {
     text-align: left;
-    margin-left: 20%;
 }
 
 .underline {
@@ -97,10 +100,11 @@ body {
 
 /* Headers */
 
-.screenplay>h3 {
+.screenplay>.scene_heading {
     margin-top: 2em;
     text-transform: uppercase;
     font-weight: bold !important;
+    padding-left: 74px;
     color: var(--text-accent) !important;
 }
 
@@ -114,7 +118,6 @@ body {
 .dialogue.dual {
     display: inline-block;
     width: 50%;
-    /* Adjust the width as needed */
     vertical-align: top;
 }
 

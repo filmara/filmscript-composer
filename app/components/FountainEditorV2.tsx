@@ -8,7 +8,7 @@ type CustomElement = {
     children: CustomText[];
 };
 
-type CustomText = { text: string };
+type CustomText = { text: string, type?: FountainTypes };
 
 declare module 'slate' {
     interface CustomTypes {
@@ -23,17 +23,35 @@ const FountainEditor: React.FC = () => {
 
     // Initialize with an empty editor or default content
     const [value, setValue] = useState<Descendant[]>([
-        { type: 'scene_heading', children: [{ text: '' }] }
+        { type: 'scene_heading', children: [{ text: "EXT. BRICK'S PATIO - DAY" }] },
+        { type: 'action', children: [{ text: "A gorgeous day.  The sun is shining.  But BRICK BRADDOCK, retired police detective, is sitting quietly, contemplating -- something." }] },
+        { type: 'action', children: [{ text: "The SCREEN DOOR slides open and DICK STEEL, his former partner and fellow retiree, emerges with two cold beers." }] },
+        { type: 'character', children: [{ text: 'STEEL' }] },
+        { type: 'dialogue', children: [{ text: "Beer's ready!" }] },
+        { type: 'character', children: [{ text: "BRICK" }] },
+        { type: 'dialogue', children: [{ text: "Are they cold?" }] },
+        { type: 'character', children: [{ text: "STEEL" }] },
+        { type: 'dialogue', children: [{ text: "Does a bear crap in the woods?" }] },
+        { type: 'action', children: [{ text: "Steel sits.  They laugh at the dumb joke." }] },
+        { type: 'character', children: [{ text: "STEEL" }] },
+        { type: 'parenthetical', children: [{ text: "(beer raised)" }] },
+        { type: 'dialogue', children: [{ text: "To retirement." }] },
+
+
     ]);
 
     const renderElement = useCallback((props: RenderElementProps) => {
         const { element, children, attributes } = props;
+        console.log('attributes', attributes)
+        console.log("children", children)
+        console.log('renderElement', element.children[0])
+        console.log('element.type', element.type)
 
-        switch (element.type) {
+        switch (element.children[0]?.type || element.type) {
             case 'scene_heading':
-                return <h3 className="scene_heading" {...attributes}>{children}</h3>;
+                return <div className="scene_heading" {...attributes}>{children}</div>;
             case 'action':
-                return <span className="action" {...attributes}>{children}</span>;
+                return <div className="action" {...attributes}>{children}</div>;
             case 'character':
                 return <span className="character bold" {...attributes}>{children}</span>;
             case 'dialogue':
@@ -41,19 +59,45 @@ const FountainEditor: React.FC = () => {
             case 'parenthetical':
                 return <div className="parenthetical" {...attributes}>{children}</div>;
             case 'transition':
-                return <p className="transition" {...attributes}>{children}</p>;
+                return <div className="transition" {...attributes}>{children}</div>;
             case 'note':
                 return <div className="note" {...attributes}>{children}</div>;
             case 'section':
-                return <h5 className="section" {...attributes}>{children}</h5>;
+                return <div className="section" {...attributes}>{children}</div>;
             case 'synopsis':
-                return <p className="synopsis" {...attributes}>{children}</p>;
+                return <div className="synopsis" {...attributes}>{children}</div>;
             case 'page_break':
                 return <div className="page-break" {...attributes}>{children}</div>;
             default:
                 return <p {...attributes}>{children}</p>;
         }
     }, [])
+
+    const updateNodeIfNeeded = useCallback(() => {
+        const { selection } = editor;
+
+        if (selection && Editor.isBlock(editor, editor.children[selection.focus.path[0]])) {
+            const [node, path] = Editor.node(editor, selection.focus.path);
+            console.log("Node.string(node)", Node.string(node))
+            console.log("path", path)
+            console.log('node',node)
+            // Check if the node's text length exceeds 3 characters
+            if (Node.string(node).length > 3) {
+                if (Node.string(node) === 'EXT.' || Node.string(node) === 'INT.') {
+                    Transforms.setNodes(
+                        editor,
+                        { type: 'scene_heading' }, // Set the desired type
+                        { at: path }
+                    );
+                }
+            }
+        }
+    }, [editor]);
+
+    React.useEffect(() => {
+        updateNodeIfNeeded();
+    }, [updateNodeIfNeeded, editor.children]);
+
 
 
     const [popoverPos, setPopoverPos] = useState<{ top: number; left: number } | null>(null);
@@ -89,8 +133,12 @@ const FountainEditor: React.FC = () => {
     };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+        console.log("event.key", event.key)
         if (event.key === 'Enter') {
             setIsPopoverVisible(true);
+        } else if (event.key === 'Tab') {
+            event.preventDefault()
+            Editor.insertText(editor, '    ');
         }
     };
 
