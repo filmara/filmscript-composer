@@ -1,7 +1,7 @@
 {
   "name": "fountain-editor",
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.3-ae9a901373ac",
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -10,7 +10,8 @@
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "preview": "vite preview",
     "typecheck": "tsc",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "reversion": "node ./scripts/reversion.cjs"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",

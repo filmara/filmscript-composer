@@ -96,21 +96,14 @@ const FountainEditor: React.FC = () => {
 
     return (
         <Slate editor={editor} initialValue={value} onChange={handleEditorChange}>
-            <Toolbar />
             <Editable
                 className="screenplay"
                 renderElement={renderElement}
-                style={{ color: '#bcbcbc', backgroundColor: '#2d2d2d', outline: 'none', padding: '20px' }}
                 onFocus={updatePopoverPosition}
                 onKeyDown={handleKeyDown} />
             {isPopoverVisible && popoverPos && (
                 <Popover style={{ position: 'absolute', top: `${popoverPos.top}px`, left: `${popoverPos.left}px` }}>
-                    <Popover.Button>Open</Popover.Button>
-                    <Popover.Panel>
-                        <div style={{ height: '48px', width: '96px', backgroundColor: 'blue' }}>
-                            Hello World
-                        </div>
-                    </Popover.Panel>
+                    <Toolbar />
                 </Popover>
             )}
         </Slate>

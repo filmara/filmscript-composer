@@ -17,31 +17,28 @@
 }
 
 /* END: deprecated styles */
-
-.screenplay {
-    margin: 0;
+body {
     padding: 0;
+    margin: 0;
+    background-color: #1e1e1e;
+}
+.screenplay {
+    height: 100vh;
+    width: 60vw;
+    color: #bcbcbc;
+    background-color: #2d2d2d;
+    outline: none;
+    margin: 20px;
+    padding: 20px;
     border: 0;
     font-size: 100%;
     font: inherit;
     overflow-y: hidden;
     vertical-align: baseline;
-}
-
-.screenplay {
-    display: block;
-}
-
-
-/* Styles for Screenplain */
-
-.screenplay {
     margin: auto;
-    width: 60vw;
     text-align: left;
     font-family: "courier-std", monospace;
     font-size: 12pt;
-    padding: 0pt 0 0 0pt;
     position: static;
 }
 
