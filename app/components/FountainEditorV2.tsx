@@ -2,7 +2,7 @@ import React, { useState, useMemo, useCallback } from 'react';
 import { BaseEditor, Descendant, createEditor, Transforms, Editor, Node, Range } from 'slate';
 import { ReactEditor, Slate, Editable, withReact, RenderElementProps, useSlateStatic } from 'slate-react';
 import { Popover } from '@headlessui/react';
-type FountainTypes = 'paragraph' | 'scene_heading' | 'character' | 'transition' | 'action' | 'parenthetical' | 'dialogue' | 'note' | 'section' | 'synopsis' | 'page_break'
+type FountainTypes = 'paragraph' | 'scene_heading' | 'character' | 'transition' | 'action' | 'parenthetical' | 'dialogue' | 'note' | 'section' | 'synopsis' | 'page_break' | 'title_page'
 type CustomElement = {
     type: FountainTypes;
     children: CustomText[];
@@ -80,13 +80,31 @@ const FountainEditor: React.FC = () => {
             const [node, path] = Editor.node(editor, selection.focus.path);
             console.log("Node.string(node)", Node.string(node))
             console.log("path", path)
-            console.log('node',node)
+            console.log('node', node)
             // Check if the node's text length exceeds 3 characters
-            if (Node.string(node).length > 3) {
-                if (Node.string(node) === 'EXT.' || Node.string(node) === 'INT.') {
+            const nodeText = Node.string(node);
+            if (nodeText.length > 3) {
+                if (nodeText.startsWith('EXT.') || nodeText.startsWith('INT.')) {
                     Transforms.setNodes(
                         editor,
                         { type: 'scene_heading' }, // Set the desired type
+                        { at: path }
+                    );
+                }
+
+                if (nodeText.startsWith('(') || nodeText.endsWith(')')) {
+                    Transforms.setNodes(
+                        editor,
+                        { type: 'parenthetical' }, // Set the desired type
+                        { at: path }
+                    );
+                }
+                const prefixes = ['Title:', 'Credits:', 'Author:', 'Source:', 'Draft Date:', 'Contact:'];
+                const matchesPrefix = prefixes.some(prefix => nodeText.startsWith(prefix));
+                if (matchesPrefix) {
+                    Transforms.setNodes(
+                        editor,
+                        { type: 'title_page' }, // Set the desired type
                         { at: path }
                     );
                 }
@@ -135,6 +153,22 @@ const FountainEditor: React.FC = () => {
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
         console.log("event.key", event.key)
         if (event.key === 'Enter') {
+            event.preventDefault(); // Prevent default to handle the enter key manually
+
+            // Check if there is a current selection
+            if (editor.selection) {
+                // Insert a line break at the current selection
+                // Editor.insertBreak(editor);
+
+                // Create a new node with type 'action'
+                const actionNode: { type: FountainTypes, children: { text: string, type: FountainTypes }[] } = { type: 'action', children: [{ text: '', type: 'action' }] };
+
+                // Insert the new node at the selection
+                Transforms.insertNodes(editor, actionNode);
+
+                // Optional: You might want to move the selection to the start of the new node
+                // Transforms.select(editor, Path.next(Path.parent(editor.selection.anchor.path)));
+            }
             setIsPopoverVisible(true);
         } else if (event.key === 'Tab') {
             event.preventDefault()
