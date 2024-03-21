@@ -1,7 +1,7 @@
 {
   "name": "fountain-editor",
   "private": true,
-  "version": "0.0.3-fb7102163d49",
+  "version": "0.0.4-32c433841eae",
   "sideEffects": false,
   "type": "module",
   "scripts": {

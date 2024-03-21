@@ -1,14 +1,17 @@
 /* Start: deprecated styles */
 .flex-container {
     display: flex;
-    align-items: flex-start; /* Align items to the start of the container */
+    align-items: flex-start;
+    /* Align items to the start of the container */
 }
 
 .medium-editor {
     border: 1px solid #ccc;
-    min-height: 100px; /* Adjust as needed */
+    min-height: 100px;
+    /* Adjust as needed */
     padding: 10px;
-    font-family: 'Courier New', Courier, monospace; /* or your preferred font for screenplay */
+    font-family: 'Courier New', Courier, monospace;
+    /* or your preferred font for screenplay */
 }
 
 .text-editor {
@@ -21,7 +24,10 @@ body {
     padding: 0;
     margin: 0;
     background-color: #1e1e1e;
+    caret-color: #1f75e6;
+
 }
+
 .screenplay {
     height: 100vh;
     width: 60vw;
@@ -29,7 +35,7 @@ body {
     background-color: #2d2d2d;
     outline: none;
     margin: 20px;
-    padding:  20px 20px 20px 74px;
+    padding: 20px 20px 20px 74px;
     border: 0;
     font-size: 100%;
     font: inherit;
@@ -43,46 +49,29 @@ body {
 }
 
 .screenplay ::selection {
-    caret-color: blue; /* or any color you prefer */
-}
-
-.screenplay>header {
-    margin-bottom: 1em;
-    border-bottom: 1px solid black;
-}
-
-.screenplay>footer {
-    margin-top: 1em;
-}
-
-.screenplay>em {
-    font-style: italic;
-}
-
-.screenplay>p .bold {
-    font-weight: bold;
-}
-
-.screenplay>br {
-    clear: both;
+    background-color: #ffb7b7;
+    /* Light red background */
+    color: #000000;
+    /* Black text color */
 }
 
 .screenplay>.action {
+    margin-left: 16px;
     margin-top: 1em;
     display: block;
 }
 
 .screenplay>.character {
-    padding-left: 222px;
+    padding-left: 216px;
+    margin-top: 2em;
     text-transform: uppercase;
     display: block;
-    width: 100%
 }
 
 /* Dialogue */
 
 .screenplay>.dialogue {
-    padding-left: 148px;
+    padding-left: 144px;
     color: var(--bright-yellow) !important;
     font-weight: 500 !important;
     font-size: 18px !important;
@@ -93,8 +82,9 @@ body {
     text-decoration: underline;
 }
 
-.screenplay>.dialogue .parenthetical {
-    padding-left: 10%;
+.screenplay>.parenthetical {
+    text-align: center;
+    padding-right: 180px;
 }
 
 
@@ -104,8 +94,15 @@ body {
     margin-top: 2em;
     text-transform: uppercase;
     font-weight: bold !important;
-    padding-left: 74px;
     color: var(--text-accent) !important;
+}
+
+.screenplay>.scene_heading::before {
+    content: attr(data-scene-number);
+    color: #7d7d7d;
+    font-weight: bold;
+    padding-right: 88px;
+    /* Additional styling for the 'Title: ' text */
 }
 
 .screenplay>.note {
@@ -119,6 +116,12 @@ body {
     display: inline-block;
     width: 50%;
     vertical-align: top;
+}
+
+.title_page::before {
+    content: attr(data-title-page);
+    color: red;
+    /* Additional styling for the 'Title: ' text */
 }
 
 .title-page-title,
@@ -163,4 +166,19 @@ body {
     font-weight: bold;
     font-style: italic;
     text-decoration: underline;
+}
+
+.toolbar-menu {
+    margin-top: 10px;
+    width: 400px;
+    padding: 8px 16px 8px 16px;
+    border-radius: 8px;
+    background-color: rgba(27, 27, 27, 0.6);
+}
+
+.toolbar-button {
+    font-size: 11px;
+    background-color: rgb(71, 71, 71);
+    border: none;
+    color: rgb(226, 226, 226)
 }
