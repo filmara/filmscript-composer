@@ -24,33 +24,28 @@ const CutEditor: React.FC = () => {
 
     // Initialize with an empty editor or default content
     const [value, setValue] = useState<Descendant[]>([
-        { type: 'scene_heading', children: [{ text: "EXT. BRICK'S PATIO - DAY", type: 'scene_heading' }] },
-        { type: 'action', children: [{ text: "A gorgeous day.  The sun is shining.  But BRICK BRADDOCK, retired police detective, is sitting quietly, contemplating -- something.", type: 'action' }] },
-        { type: 'action', children: [{ text: "The SCREEN DOOR slides open and DICK STEEL, his former partner and fellow retiree, emerges with two cold beers.", type: 'action' }] },
-        { type: 'character', children: [{ text: 'STEEL', type: 'character' }] },
-        { type: 'dialogue', children: [{ text: "Beer's ready!", type: 'dialogue' }] },
-        { type: 'character', children: [{ text: "BRICK", type: 'character' }] },
-        { type: 'dialogue', children: [{ text: "Are they cold?", type: 'dialogue' }] },
-        { type: 'character', children: [{ text: "STEEL", type: 'character' }] },
-        { type: 'dialogue', children: [{ text: "Does a bear crap in the woods?", type: 'dialogue' }] },
-        { type: 'action', children: [{ text: "Steel sits.  They laugh at the dumb joke.", type: 'action' }] },
-        { type: 'character', children: [{ text: "STEEL", type: 'character' }] },
-        { type: 'parenthetical', children: [{ text: "(beer raised)", type: 'parenthetical' }] },
-        { type: 'dialogue', children: [{ text: "To retirement.", type: 'dialogue' }] },
-        { type: 'character', children: [{ text: "BRICK", type: 'character' }] },
-        { type: 'parenthetical', children: [{ text: "(another beer raised)", type: 'parenthetical' }] },
-        { type: 'dialogue', children: [{ text: "To retirement.", type: 'dialogue' }] },
+        { children: [{ text: "EXT. BRICK'S PATIO - DAY", type: 'scene_heading' }] },
+        { children: [{ text: "A gorgeous day.  The sun is shining.  But BRICK BRADDOCK, retired police detective, is sitting quietly, contemplating -- something.", type: 'action' }] },
+        { children: [{ text: "The SCREEN DOOR slides open and DICK STEEL, his former partner and fellow retiree, emerges with two cold beers.", type: 'action' }] },
+        { children: [{ text: 'STEEL', type: 'character' }] },
+        { children: [{ text: "Beer's ready!", type: 'dialogue' }] },
+        { children: [{ text: "BRICK", type: 'character' }] },
+        { children: [{ text: "Are they cold?", type: 'dialogue' }] },
+        { children: [{ text: "STEEL", type: 'character' }] },
+        { children: [{ text: "Does a bear crap in the woods?", type: 'dialogue' }] },
+        { children: [{ text: "Steel sits.  They laugh at the dumb joke.", type: 'action' }] },
+        { children: [{ text: "STEEL", type: 'character' }] },
+        { children: [{ text: "(beer raised)", type: 'parenthetical' }] },
+        { children: [{ text: "To retirement.", type: 'dialogue' }] },
+        { children: [{ text: "BRICK", type: 'character' }] },
+        { children: [{ text: "(another beer raised)", type: 'parenthetical' }] },
+        { children: [{ text: "To retirement.", type: 'dialogue' }] },
     ]);
 
 
 
     const renderElement = useCallback((props: RenderElementProps) => {
         const { element, children, attributes } = props;
-        // console.log('attributes', attributes)
-        // console.log("children", children)
-        // console.log('renderElement', element.children[0])
-        // console.log('element.type', element.type)
-
         // let classNames = "";
 
         // // Example: Checking if the first child's text contains "Title:"
@@ -58,7 +53,7 @@ const CutEditor: React.FC = () => {
         // if (firstChildText?.startsWith("Title:")) {
         //     classNames += " title_match"; // Add a class if it matches "Title:"
         // }
-        console.log("match type", element.children[0]?.type === element.type, element.children[0]?.type, element.type)
+        console.log("type", element.children[0]?.type)
         switch (element.children[0]?.type) {
             case 'scene_heading':
                 return <div className="scene_heading" {...attributes}>{children}</div>;
@@ -223,7 +218,7 @@ const CutEditor: React.FC = () => {
 
 
     const insertNewNode = (newNodeType: FountainTypes) => {
-        const newNode: FountainNode = { type: newNodeType, children: [{ text: '', type: newNodeType }] };
+        const newNode: FountainNode = { children: [{ text: '', type: newNodeType }] };
         Transforms.insertNodes(editor, newNode);
         // Optional: Move the selection to the start of the new node
         // Transforms.select(editor, Path.next(Path.parent(editor.selection.anchor.path)));
