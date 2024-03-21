@@ -1,4 +1,4 @@
-export type FountainTypes = 'paragraph' | 'scene_heading' | 'character' | 'transition' | 'action' | 'parenthetical' | 'dialogue' | 'note' | 'section' | 'synopsis' | 'page_break' | 'title_page'
+export type FountainTypes = 'paragraph' | 'scene_heading' | 'character' | 'transition' | 'action' | 'parenthetical' | 'dialogue' | 'note' | 'section' | 'synopsis' | 'page_break' | 'title_page' | 'lyric' | 'centered_text'
 
 export type CustomElement = {
     type: FountainTypes;

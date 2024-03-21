@@ -101,18 +101,66 @@ const CutEditor: React.FC = () => {
                 if (/^[A-Z]+$/.test(nodeText)) {
                     Transforms.setNodes(editor, { type: 'character' }, { at: path });
                 }
+                if (nodeText.startsWith('!')) {
+                    Transforms.setNodes(
+                        editor,
+                        { type: 'action' }, 
+                        { at: path }
+                    );
+                }
+                if (nodeText.startsWith('[[') && nodeText.endsWith(']]')) {
+                    Transforms.setNodes(
+                        editor,
+                        { type: 'note' }, 
+                        { at: path }
+                    );
+                }
+                
                 if (nodeText.startsWith('EXT.') || nodeText.startsWith('INT.')) {
                     Transforms.setNodes(
                         editor,
-                        { type: 'scene_heading' }, // Set the desired type
+                        { type: 'scene_heading' }, 
                         { at: path }
                     );
                 }
 
-                if (nodeText.startsWith('(') || nodeText.endsWith(')')) {
+                if (nodeText.startsWith('# ') || nodeText.startsWith('## ') || nodeText.startsWith('### ') || nodeText.startsWith('#### '))  {
                     Transforms.setNodes(
                         editor,
-                        { type: 'parenthetical' }, // Set the desired type
+                        { type: 'section' }, 
+                        { at: path }
+                    );
+                }
+
+                
+                if (nodeText.startsWith('~')) {
+                    Transforms.setNodes(
+                        editor,
+                        { type: 'lyric' }, 
+                        { at: path }
+                    );
+                }
+
+                if (nodeText.startsWith('= ')) {
+                    Transforms.setNodes(
+                        editor,
+                        { type: 'synopsis' }, 
+                        { at: path }
+                    );
+                }
+                
+                if (nodeText.startsWith('>') && nodeText.endsWith('<')) {
+                    Transforms.setNodes(
+                        editor,
+                        { type: 'centered_text' }, 
+                        { at: path }
+                    );
+                }
+
+                if (nodeText.startsWith('(') && nodeText.endsWith(')')) {
+                    Transforms.setNodes(
+                        editor,
+                        { type: 'parenthetical' }, 
                         { at: path }
                     );
                 }
@@ -121,7 +169,15 @@ const CutEditor: React.FC = () => {
                 if (matchesPrefix) {
                     Transforms.setNodes(
                         editor,
-                        { type: 'title_page' }, // Set the desired type
+                        { type: 'title_page' }, 
+                        { at: path }
+                    );
+                }
+
+                if (nodeText === '===') {
+                    Transforms.setNodes(
+                        editor,
+                        { type: 'page_break' }, 
                         { at: path }
                     );
                 }
