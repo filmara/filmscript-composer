@@ -11,7 +11,9 @@
     "preview": "vite preview",
     "typecheck": "tsc",
     "tauri": "tauri",
-    "reversion": "node ./scripts/reversion.cjs"
+    "reversion": "node ./scripts/reversion.cjs",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
@@ -24,7 +26,16 @@
     "slate-react": "^0.102.0"
   },
   "devDependencies": {
+    "@chromatic-com/storybook": "^1.2.25",
     "@remix-run/dev": "^2.8.1",
+    "@storybook/addon-essentials": "^8.0.4",
+    "@storybook/addon-interactions": "^8.0.4",
+    "@storybook/addon-links": "^8.0.4",
+    "@storybook/addon-onboarding": "^8.0.4",
+    "@storybook/blocks": "^8.0.4",
+    "@storybook/react": "^8.0.4",
+    "@storybook/react-vite": "^8.0.4",
+    "@storybook/test": "^8.0.4",
     "@tauri-apps/cli": "^1.5.11",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
@@ -36,11 +47,17 @@
     "eslint-plugin-jsx-a11y": "^6.7.1",
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-storybook": "^0.8.0",
+    "storybook": "^8.0.4",
     "typescript": "^5.1.6",
     "vite": "^5.1.0",
     "vite-tsconfig-paths": "^4.2.1"
   },
   "engines": {
     "node": ">=18.0.0"
-  }
+  },
+  "volta": {
+    "node": "18.19.1"
+  },
+  "packageManager": "pnpm@8.9.2+sha1.5f2fa48d614263457cf5d7fb7be8b878da318d87"
 }
