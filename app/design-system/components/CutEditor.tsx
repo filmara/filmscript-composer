@@ -233,7 +233,7 @@ const CutEditor: React.FC = () => {
     return (
         <Slate editor={editor} initialValue={value} onChange={handleEditorChange}>
             <Editable
-                className="screenplay"
+                className="screenplay h-[92vh]"
                 renderElement={renderElement}
                 onContextMenu={handleRightClick}
                 onFocus={updatePopoverPosition}
