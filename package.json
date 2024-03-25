@@ -5,17 +5,18 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "remix vite:build",
-    "dev": "remix vite:dev",
+    "dev": "npm-run-all --parallel remix:watch tailwind:watch storybook:watch",
+    "remix:watch": "remix vite:dev",
+    "remix:build": "remix vite:build",
+    "storybook:watch": "storybook dev -p 6006",
+    "storybook:build": "storybook build",
+    "tailwind:build": "npx tailwindcss build -i app/assets/main.css -o app/assets/index.css -c tailwind.config.js",
+    "tailwind:watch": "npx tailwindcss -i app/assets/main.css -o app/assets/index.css -c tailwind.config.js --watch",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "preview": "vite preview",
     "typecheck": "tsc",
     "tauri": "tauri",
-    "reversion": "node ./scripts/reversion.cjs",
-    "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build",
-    "tailwind:build": "npx tailwindcss build -i app/assets/main.css -o app/assets/index.css -c tailwind.config.js",
-    "watch-tailwind": "npx tailwindcss -i styles/main.css -o styles/index.css -c tailwind.config.js --watch"
+    "reversion": "node ./scripts/reversion.cjs"
   },
   "dependencies": {
     "@h6s/calendar": "^2.0.1",
@@ -62,6 +63,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-storybook": "^0.8.0",
+    "npm-run-all": "^4.1.5",
     "postcss": "^8.4.38",
     "storybook": "^8.0.4",
     "tailwindcss": "^3.4.1",
