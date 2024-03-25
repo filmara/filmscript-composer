@@ -1,0 +1,3 @@
+[submodule "app/design-system/shared"]
+	path = app/design-system/shared
+	url = git@github.com:hacksur/shared.git

@@ -18,14 +18,24 @@
     "watch-tailwind": "npx tailwindcss -i styles/main.css -o styles/index.css -c tailwind.config.js --watch"
   },
   "dependencies": {
+    "@h6s/calendar": "^2.0.1",
+    "@headlessui-float/react": "^0.13.2",
     "@headlessui/react": "^1.7.18",
     "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",
+    "ahooks": "^3.7.10",
+    "date-fns": "^3.6.0",
+    "dayzed": "^3.2.3",
+    "framer-motion": "^11.0.20",
+    "luxon": "^3.4.4",
+    "qrcode-generator": "^1.4.4",
+    "rci": "^0.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "slate": "^0.102.0",
     "slate-history": "^0.100.0",
-    "slate-react": "^0.102.0"
+    "slate-react": "^0.102.0",
+    "use-is-focused": "^0.0.1"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^1.2.25",
@@ -44,6 +54,7 @@
     "@typescript-eslint/eslint-plugin": "^6.7.4",
     "@typescript-eslint/parser": "^6.7.4",
     "autoprefixer": "^10.4.19",
+    "clsx": "^2.1.0",
     "eslint": "^8.38.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.28.1",

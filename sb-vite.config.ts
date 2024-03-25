@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => {
     resolve: {
       alias: {
         '~/styles': path.resolve(__dirname, './app/assets'),
+        '~/src': path.resolve(__dirname, './app/design-system')
       },
     },
   }
