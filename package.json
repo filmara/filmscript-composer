@@ -13,7 +13,9 @@
     "tauri": "tauri",
     "reversion": "node ./scripts/reversion.cjs",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "tailwind:build": "npx tailwindcss build -i app/assets/main.css -o app/assets/index.css -c tailwind.config.js",
+    "watch-tailwind": "npx tailwindcss -i styles/main.css -o styles/index.css -c tailwind.config.js --watch"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",

@@ -5,7 +5,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
-import styleUrl from '~/assets/style.css?url';
+import styleUrl from '~/assets/output.css?url';
 
 export const links = () => {
   return [{ rel: 'stylesheet', href: "https://use.typekit.net/vkh2lev.css" },
