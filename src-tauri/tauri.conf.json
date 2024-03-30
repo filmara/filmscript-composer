@@ -7,7 +7,7 @@
     "distDir": "../build"
   },
   "package": {
-    "productName": "filmscript-composer",
+    "productName": "Filmscript Composer",
     "version": "0.1.0"
   },
   "tauri": {
@@ -58,7 +58,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "filmscript-composer",
+        "title": "Filmscript Composer",
         "width": 800
       }
     ]
