@@ -4,7 +4,6 @@
 
 
 @layer base {
-
     .text-display-bold {
         @apply text-[72.2px] font-bold;
     }

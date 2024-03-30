@@ -1,5 +1,5 @@
 {
-  "include": ["env.d.ts", "**/*.ts", "**/*.tsx", "src/**/*", "app/design-system/shared/stories/**/*", "app/assets/index.css"],
+  "include": ["env.d.ts", "**/*.ts", "**/*.tsx", "app/**/*", "app/design-system/shared/stories/**/*", "app/assets/index.css"],
   "exclude": ["node_modules", "lib", "app/assets/main.css"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],

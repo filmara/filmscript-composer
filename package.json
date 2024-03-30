@@ -1,7 +1,7 @@
 {
-  "name": "fountain-editor",
+  "name": "filmscript-composer",
   "private": true,
-  "version": "0.0.5-3d27f82f5366",
+  "version": "0.0.5-55af7b904ce7",
   "sideEffects": false,
   "type": "module",
   "scripts": {

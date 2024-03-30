@@ -7,7 +7,7 @@
     "distDir": "../build"
   },
   "package": {
-    "productName": "fountain-editor",
+    "productName": "filmscript-composer",
     "version": "0.1.0"
   },
   "tauri": {
@@ -58,7 +58,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "fountain-editor",
+        "title": "filmscript-composer",
         "width": 800
       }
     ]
