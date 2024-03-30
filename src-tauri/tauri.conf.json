@@ -1,10 +1,10 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npm run dev",
-    "devPath": "http://localhost:5173",
-    "distDir": "../build"
+    "beforeBuildCommand": "npm run remix:build",
+    "beforeDevCommand": "npm run remix:dev",
+    "devPath": "http://127.0.0.1:5173",
+    "distDir": "../build/client"
   },
   "package": {
     "productName": "Filmscript Composer",
@@ -29,7 +29,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.filmscript.composer.prod",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
