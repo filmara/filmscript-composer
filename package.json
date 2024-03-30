@@ -1,12 +1,12 @@
 {
   "name": "filmscript-composer",
   "private": true,
-  "version": "0.0.5-8fdbf0007df7",
+  "version": "0.0.5-b9966c6c8df6",
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "dev": "npm-run-all --parallel remix:watch tailwind:watch storybook:watch",
-    "remix:watch": "remix vite:dev",
+    "dev": "npm-run-all --parallel remix:dev tailwind:watch storybook:watch",
+    "remix:dev": "remix vite:dev",
     "remix:build": "remix vite:build",
     "storybook:watch": "storybook dev -p 6006",
     "storybook:build": "storybook build",
