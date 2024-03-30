@@ -8,6 +8,7 @@ export default defineConfig({
   clearScreen: false,
   // Tauri expects a fixed port, fail if that port is not available
   server: {
+    host: '127.0.0.1',
     strictPort: true,
   },
   // to access the Tauri environment variables set by the CLI with information about the current target
