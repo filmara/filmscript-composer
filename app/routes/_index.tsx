@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { CutEditor, Menu } from '~/design-system/components';
+import { SpeedEditor, Menu } from '~/design-system/components';
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,7 +11,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
   return (
     <div>
-      <CutEditor />
+      <SpeedEditor />
       <Menu />
     </div>
   );

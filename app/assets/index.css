@@ -4437,10 +4437,6 @@ body {
   color: var(--color-primary-400);
 }
 
-.hover\:text-primary-500:hover {
-  color: var(--color-primary-500);
-}
-
 .hover\:text-red-100:hover {
   color: var(--color-red-100);
 }
@@ -4579,10 +4575,6 @@ body {
 
 .focus\:text-primary-400:focus {
   color: var(--color-primary-400);
-}
-
-.focus\:text-primary-500:focus {
-  color: var(--color-primary-500);
 }
 
 .focus\:text-red-500:focus {

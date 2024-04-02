@@ -20,7 +20,7 @@ const assignSceneNumbers = () => {
 };
 
 
-const CutEditor: React.FC = () => {
+const SpeedEditor: React.FC = () => {
     const editor = useMemo(() => withReact(createEditor()), []);
 
     // Initialize with an empty editor or default content
@@ -44,7 +44,6 @@ const CutEditor: React.FC = () => {
     ]);
 
 
-
     const renderElement = useCallback((props: RenderElementProps) => {
         const { element, children, attributes } = props;
         // let classNames = "";
@@ -55,9 +54,14 @@ const CutEditor: React.FC = () => {
         //     classNames += " title_match"; // Add a class if it matches "Title:"
         // }
         console.log("type", element.children[0]?.type)
+        console.log("children", element.children[0])
+
         switch (element.children[0]?.type) {
             case 'scene_heading':
-                return <div className="scene_heading" {...attributes}><Button variant='primary' size='tiny' text='INT.' />{children}</div>;
+                return <div className="scene_heading" {...attributes}>
+                    {element.children[0].prefix && <Button text={element.children[0].prefix} variant='primary' size="tiny" />}
+                    {children}
+                </div>;
             case 'action':
                 return <div className="action" {...attributes}>{children}</div>;
             case 'character':
@@ -178,7 +182,28 @@ const CutEditor: React.FC = () => {
                     handleEnterPress();
                 }
                 break;
+            case ' ':
+                const { selection } = editor;
 
+                if (selection && Range.isCollapsed(selection)) {
+                    const [start,] = Range.edges(selection);
+                    const wordBefore = Editor.before(editor, start, { unit: 'word' });
+                    const beforeRange = wordBefore && Editor.range(editor, wordBefore, start);
+                    const beforeText = beforeRange && Editor.string(editor, beforeRange);
+
+                    const scenePrefixes = ['INT.', 'EXT.'];
+                    if (scenePrefixes.includes(beforeText)) {
+                        // Prevent default behavior
+                        event.preventDefault();
+
+                        // Update the node type to 'scene_heading' and store the prefix
+                        Transforms.setNodes(editor, { type: 'scene_heading', prefix: beforeText }, { at: selection.focus.path });
+
+                        // Replace the word with an empty string to remove it
+                        Transforms.delete(editor, { at: beforeRange });
+                    }
+                }
+                break;
             case 'Tab':
                 event.preventDefault();
                 Editor.insertText(editor, '    ');
@@ -273,7 +298,7 @@ const Toolbar: React.FC = () => {
         const [node, path] = Editor.node(editor, editor.selection.focus.path);
 
         // Create a new object with the updated type
-        const newNode = { ...node, type: type };
+        const newNode = { ...node, type: type, prefix: type };
 
         // Set the new node at the current path
         Transforms.setNodes(editor, newNode, { at: path });
@@ -310,4 +335,4 @@ const Toolbar: React.FC = () => {
 };
 
 
-export { CutEditor };
+export { SpeedEditor };

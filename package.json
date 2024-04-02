@@ -1,7 +1,7 @@
 {
   "name": "filmscript-composer",
   "private": true,
-  "version": "0.0.5-8706a3540764",
+  "version": "0.0.6-bc7a9f3ddd2e",
   "sideEffects": false,
   "type": "module",
   "scripts": {
