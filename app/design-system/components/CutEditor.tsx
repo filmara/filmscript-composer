@@ -3,6 +3,7 @@ import { Descendant, createEditor, Transforms, Editor, Node, Range } from 'slate
 import { ReactEditor, Slate, Editable, withReact, RenderElementProps, useSlateStatic } from 'slate-react';
 import { Popover } from '@headlessui/react';
 import { FountainTypes, FountainNode, CustomText } from './types';
+import { Button } from '../shared';
 // import { Toolbar } from './Toolbar';
 
 const assignSceneNumbers = () => {
@@ -56,7 +57,7 @@ const CutEditor: React.FC = () => {
         console.log("type", element.children[0]?.type)
         switch (element.children[0]?.type) {
             case 'scene_heading':
-                return <div className="scene_heading" {...attributes}>{children}</div>;
+                return <div className="scene_heading" {...attributes}><Button variant='primary' size='tiny' text='INT.' />{children}</div>;
             case 'action':
                 return <div className="action" {...attributes}>{children}</div>;
             case 'character':
@@ -267,13 +268,13 @@ const Toolbar: React.FC = () => {
 
     const setNodeType = (type: FountainTypes) => {
         if (!editor.selection) return;
-    
+
         // Get the current node and its path
         const [node, path] = Editor.node(editor, editor.selection.focus.path);
-    
+
         // Create a new object with the updated type
         const newNode = { ...node, type: type };
-    
+
         // Set the new node at the current path
         Transforms.setNodes(editor, newNode, { at: path });
     };

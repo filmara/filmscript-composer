@@ -1,7 +1,7 @@
 {
   "name": "filmscript-composer",
   "private": true,
-  "version": "0.0.5-35aef2c22ea2",
+  "version": "0.0.5-8706a3540764",
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -49,6 +49,8 @@
     "@storybook/react": "^8.0.4",
     "@storybook/react-vite": "^8.0.4",
     "@storybook/test": "^8.0.4",
+    "@tailwindcss/forms": "^0.5.7",
+    "@tailwindcss/line-clamp": "^0.4.4",
     "@tauri-apps/cli": "^1.5.11",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
