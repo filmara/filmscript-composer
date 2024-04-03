@@ -43,18 +43,34 @@ const SpeedEditor: React.FC = () => {
         { children: [{ text: "To retirement.", type: 'dialogue' }] },
     ]);
 
+    const updateCurrentNodePrefix = (editor: Editor, newPrefix: string) => {
+        const { selection } = editor;
+
+        // Ensure that there is a current selection in the editor
+        if (!selection) return;
+
+        // Get the current node at the selection
+        const [node, path] = Editor.node(editor, selection.focus.path);
+
+        // Check if the node is of a type that should have a prefix (e.g., 'scene_heading')
+        if (node.type === 'scene_heading') {
+            // Set the new prefix
+            Transforms.setNodes(editor, { prefix: newPrefix }, { at: path });
+        }
+    };
+
 
     const renderElement = useCallback((props: RenderElementProps) => {
         const { element, children, attributes } = props;
-        
+
         const type = element.children[0]?.type
         const prefix = element.children[0]?.prefix
         switch (type) {
             case 'scene_heading':
                 return <div className="scene_heading" {...attributes}>
                     {prefix && <span className="mr-4"><Dropdown direction="left-bottom" button={{ variant: 'primary', size: 'tiny', text: prefix }} items={[
-                        { text: 'Edit', type: 'button' },
-                        { text: 'Duplicate', type: 'button' }
+                        { text: 'INT.', type: 'button', action: () => updateCurrentNodePrefix(editor, 'INT.') },
+                        { text: 'EXT.', type: 'button', action: () => updateCurrentNodePrefix(editor, 'EXT.') }
                     ]} /></span>}
                     {children}
                 </div>;
@@ -286,8 +302,56 @@ const nodeTypes: { type: FountainTypes; label: string }[] = [
     { type: 'title_page', label: 'Title Page' }
 ];
 
+const optionsForNodeType = {
+    'scene_heading': [
+        { type: 'action', label: 'Action' },
+        { type: 'character', label: 'Character' },
+        { type: 'dialogue', label: 'Dialogue' }
+        // Other options relevant to 'scene_heading'
+    ],
+    'dialogue': [
+        { type: 'parenthetical', label: 'Parenthetical' },
+        { type: 'character', label: 'Character' }
+        // Other options relevant to 'dialogue'
+    ],
+    'action': [
+        { type: 'scene_heading', label: 'Scene Heading' },
+        { type: 'character', label: 'Character' }
+        // Other options relevant to 'action'
+    ],
+    'character': [
+        { type: 'dialogue', label: 'Dialogue' },
+        { type: 'action', label: 'Action' }
+        // Other options relevant to 'character'
+    ],
+    'transition': [
+        // Define options relevant to 'transition'
+    ],
+    'parenthetical': [
+        { type: 'dialogue', label: 'Dialogue' }
+        // Other options relevant to 'parenthetical'
+    ],
+    'note': [
+        // Define options relevant to 'note'
+    ],
+    'section': [
+        // Define options relevant to 'section'
+    ],
+    'synopsis': [
+        // Define options relevant to 'synopsis'
+    ],
+    'page_break': [
+        // Define options relevant to 'page_break'
+    ],
+    'title_page': [
+        // Define options relevant to 'title_page'
+    ]
+    // Add other node types and their options as needed
+};
+
+
 const Toolbar: React.FC = () => {
-    const editor = useSlateStatic();
+    const editor = useSlateStatic();    
 
     const setNodeType = (type: FountainTypes) => {
         if (!editor.selection) return;
@@ -312,10 +376,20 @@ const Toolbar: React.FC = () => {
         return !!match;
     };
 
+    // Function to determine the current node type
+    const getCurrentNodeType = (): FountainTypes | null => {
+        if (!editor.selection) return null;
+        const [node] = Editor.node(editor, editor.selection.focus.path);
+        return node.type ?? null;
+    };
+
+    const currentType = getCurrentNodeType();
+
+    const currentOptions = currentType ? optionsForNodeType[currentType] : nodeTypes;
 
     return (
         <div className="toolbar-menu">
-            {nodeTypes.map(({ type, label }) => (
+            {currentOptions.map(({ type, label }: any) => (
                 <button
                     key={type}
                     onMouseDown={e => {
@@ -331,6 +405,5 @@ const Toolbar: React.FC = () => {
         </div>
     );
 };
-
 
 export { SpeedEditor };

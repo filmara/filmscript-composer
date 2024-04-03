@@ -3,8 +3,8 @@ import { SpeedEditor, Menu } from '~/design-system/components';
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Fountain" },
-    { name: "description", content: "Editor" },
+    { title: "Filmscript Composer" },
+    { name: "description", content: "Script editor for the new realm" },
   ];
 };
 
