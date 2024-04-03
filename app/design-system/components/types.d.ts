@@ -4,7 +4,7 @@ export type CustomElement = {
     children: CustomText[];
 };
 
-export type CustomText = { text: string, type?: FountainTypes };
+export type CustomText = { text: string, type?: FountainTypes, prefix?: string };
 export type FountainNode = { children: CustomText[] };
 
 declare module 'slate' {

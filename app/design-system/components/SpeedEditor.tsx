@@ -3,7 +3,7 @@ import { Descendant, createEditor, Transforms, Editor, Node, Range } from 'slate
 import { ReactEditor, Slate, Editable, withReact, RenderElementProps, useSlateStatic } from 'slate-react';
 import { Popover } from '@headlessui/react';
 import { FountainTypes, FountainNode, CustomText } from './types';
-import { Button } from '../shared';
+import { Button, Dropdown } from '../shared';
 // import { Toolbar } from './Toolbar';
 
 const assignSceneNumbers = () => {
@@ -25,7 +25,7 @@ const SpeedEditor: React.FC = () => {
 
     // Initialize with an empty editor or default content
     const [value, setValue] = useState<Descendant[]>([
-        { children: [{ text: "EXT. BRICK'S PATIO - DAY", type: 'scene_heading' }] },
+        { children: [{ text: "BRICK'S PATIO - DAY", type: 'scene_heading', prefix: 'EXT.' }] },
         { children: [{ text: "A gorgeous day.  The sun is shining.  But BRICK BRADDOCK, retired police detective, is sitting quietly, contemplating -- something.", type: 'action' }] },
         { children: [{ text: "The SCREEN DOOR slides open and DICK STEEL, his former partner and fellow retiree, emerges with two cold beers.", type: 'action' }] },
         { children: [{ text: 'STEEL', type: 'character' }] },
@@ -46,20 +46,16 @@ const SpeedEditor: React.FC = () => {
 
     const renderElement = useCallback((props: RenderElementProps) => {
         const { element, children, attributes } = props;
-        // let classNames = "";
-
-        // // Example: Checking if the first child's text contains "Title:"
-        // const firstChildText = element.children[0]?.text;
-        // if (firstChildText?.startsWith("Title:")) {
-        //     classNames += " title_match"; // Add a class if it matches "Title:"
-        // }
-        console.log("type", element.children[0]?.type)
-        console.log("children", element.children[0])
-
-        switch (element.children[0]?.type) {
+        
+        const type = element.children[0]?.type
+        const prefix = element.children[0]?.prefix
+        switch (type) {
             case 'scene_heading':
                 return <div className="scene_heading" {...attributes}>
-                    {element.children[0].prefix && <Button text={element.children[0].prefix} variant='primary' size="tiny" />}
+                    {prefix && <span className="mr-4"><Dropdown direction="left-bottom" button={{ variant: 'primary', size: 'tiny', text: prefix }} items={[
+                        { text: 'Edit', type: 'button' },
+                        { text: 'Duplicate', type: 'button' }
+                    ]} /></span>}
                     {children}
                 </div>;
             case 'action':
@@ -166,6 +162,28 @@ const SpeedEditor: React.FC = () => {
         updatePopoverPosition();
     };
 
+    const handlePrefixDetection = () => {
+        const { selection } = editor;
+        if (selection && Range.isCollapsed(selection)) {
+            const [start,] = Range.edges(selection);
+            const wordBefore = Editor.before(editor, start, { unit: 'word' });
+            const beforeRange = wordBefore && Editor.range(editor, wordBefore, start);
+            const beforeText = beforeRange && Editor.string(editor, beforeRange);
+
+            const scenePrefixes = ['INT.', 'EXT.'];
+            if (scenePrefixes.includes(beforeText)) {
+                // Prevent default behavior
+                event.preventDefault();
+
+                // Update the node type to 'scene_heading' and store the prefix
+                Transforms.setNodes(editor, { type: 'scene_heading', prefix: beforeText }, { at: selection.focus.path });
+
+                // Replace the word with an empty string to remove it
+                Transforms.delete(editor, { at: beforeRange });
+            }
+        }
+    };
+
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
         console.log("event.key", event.key)
 
@@ -183,33 +201,13 @@ const SpeedEditor: React.FC = () => {
                 }
                 break;
             case ' ':
-                const { selection } = editor;
-
-                if (selection && Range.isCollapsed(selection)) {
-                    const [start,] = Range.edges(selection);
-                    const wordBefore = Editor.before(editor, start, { unit: 'word' });
-                    const beforeRange = wordBefore && Editor.range(editor, wordBefore, start);
-                    const beforeText = beforeRange && Editor.string(editor, beforeRange);
-
-                    const scenePrefixes = ['INT.', 'EXT.'];
-                    if (scenePrefixes.includes(beforeText)) {
-                        // Prevent default behavior
-                        event.preventDefault();
-
-                        // Update the node type to 'scene_heading' and store the prefix
-                        Transforms.setNodes(editor, { type: 'scene_heading', prefix: beforeText }, { at: selection.focus.path });
-
-                        // Replace the word with an empty string to remove it
-                        Transforms.delete(editor, { at: beforeRange });
-                    }
+            case 'Tab':
+                handlePrefixDetection();
+                if (event.key === 'Tab') {
+                    event.preventDefault();
+                    Editor.insertText(editor, '    ');
                 }
                 break;
-            case 'Tab':
-                event.preventDefault();
-                Editor.insertText(editor, '    ');
-                break;
-
-            // Add other cases as needed
         }
     };
 

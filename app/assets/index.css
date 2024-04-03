@@ -1445,6 +1445,10 @@ select {
   margin-right: 0.5rem;
 }
 
+.mr-4 {
+  margin-right: 1rem;
+}
+
 .mr-\[20px\] {
   margin-right: 20px;
 }
@@ -2003,8 +2007,20 @@ select {
   border-collapse: collapse;
 }
 
+.origin-bottom-left {
+  transform-origin: bottom left;
+}
+
+.origin-bottom-right {
+  transform-origin: bottom right;
+}
+
 .origin-center {
   transform-origin: center;
+}
+
+.origin-top-left {
+  transform-origin: top left;
 }
 
 .origin-top-right {
