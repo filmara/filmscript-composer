@@ -1,3 +1,2 @@
-export * from './SpeedEditor';
+export * from './SpeedEditor/index';
 export * from './Menu';
-export * from './Toolbar';
