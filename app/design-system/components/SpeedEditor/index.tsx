@@ -100,8 +100,14 @@ const SpeedEditor: React.FC = () => {
         const nodeText = Node.string(node);
         if (nodeText.length <= 2) return;
 
-        const updateType = (type: FountainTypes) => Transforms.setNodes(editor, { type }, { at: path });
-
+        const updateType = (type: FountainTypes) => {
+            // Prevent changing the type if the current node is a scene_heading
+            if (node.type === 'scene_heading' && type !== 'scene_heading') {
+                console.log("Scene headings cannot be changed to other types.");
+                return;
+            }
+            Transforms.setNodes(editor, { type }, { at: path });
+        };
         const checkAndUpdateNode = () => {
             if (/^[A-Z]+$/.test(nodeText)) return updateType('character');
             if (nodeText.startsWith('!')) return updateType('action');
@@ -188,6 +194,18 @@ const SpeedEditor: React.FC = () => {
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
         console.log("event.key", event.key)
 
+        if (event.key === 'Backspace') {
+            const { selection } = editor;
+            if (selection && Range.isCollapsed(selection)) {
+                const [node] = Editor.node(editor, selection.focus.path);
+                if (node.type === 'scene_heading' && Node.string(node).length === 0) {
+                    // Prevent backspace from deleting the scene_heading when its text is empty
+                    event.preventDefault();
+                    return;
+                }
+            }
+        }
+        
         switch (event.key) {
             case 'Escape':
                 event.preventDefault();
