@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
-import { Descendant, createEditor, Transforms, Editor, Node, Range } from 'slate';
+import { Descendant, createEditor, Transforms, Editor, Node, Range, Path } from 'slate';
 import { ReactEditor, Slate, Editable, withReact, RenderElementProps, useSlateStatic } from 'slate-react';
 import { Popover } from '@headlessui/react';
 import { FountainTypes, FountainNode, CustomText } from './types';
@@ -36,16 +36,27 @@ const SpeedEditor: React.FC = () => {
 
     const renderElement = useCallback((props: RenderElementProps) => {
         const { element, children, attributes } = props;
-
         const type = element.children[0]?.type
         const prefix = element.children[0]?.prefix
+        const path = ReactEditor.findPath(editor, element);
+
         switch (type) {
             case 'scene_heading':
                 return <div className="scene_heading" {...attributes}>
-                    {prefix && <span className="mr-4"><Dropdown direction="left-bottom" button={{ variant: 'primary', size: 'tiny', text: prefix }} items={[
-                        { text: 'INT.', type: 'button', action: () => updateCurrentNodePrefix(editor, 'INT.') },
-                        { text: 'EXT.', type: 'button', action: () => updateCurrentNodePrefix(editor, 'EXT.') }
-                    ]} /></span>}
+                    {prefix && <span className="mr-4">
+                        <Dropdown
+                            direction="left-bottom"
+                            button={{
+                                variant: 'primary',
+                                size: 'tiny',
+                                text: prefix,
+                                onClick: (event) => handleButtonClick(event, path)
+                            }}
+                            items={[
+                                { text: 'INT.', type: 'button', action: () => updateCurrentNodePrefix(editor, 'INT.') },
+                                { text: 'EXT.', type: 'button', action: () => updateCurrentNodePrefix(editor, 'EXT.') }
+                            ]} />
+                    </span>}
                     {children}
                 </div>;
             case 'action':
@@ -178,7 +189,7 @@ const SpeedEditor: React.FC = () => {
         console.log("event.key", event.key)
 
         switch (event.key) {
-            case 'Escape': 
+            case 'Escape':
                 event.preventDefault();
                 break;
             case 'Enter':
@@ -248,30 +259,42 @@ const SpeedEditor: React.FC = () => {
     };
 
     function updateSelection(editor: Editor, newPath: number[], newOffset: number) {
-        if (Editor.hasFocus(editor)) {
-          const newSelection = {
+        const newSelection = {
             anchor: { path: newPath, offset: newOffset },
             focus: { path: newPath, offset: newOffset }
-          };
-          Transforms.select(editor, newSelection);
-        } else {
-          console.log("Editor does not have focus");
-        }
-      }
+        };
+        debugLog('newSelection', newSelection)
+        Transforms.select(editor, newSelection);
+
+    }
+
+    const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>, path: Path) => {
+        // event.preventDefault();
+
+        // Focus the editor and set the selection to the node's path
+        ReactEditor.focus(editor);
+        Transforms.select(editor, path);
+
+        // Now you can trigger the dropdown knowing the selection is correctly set
+        // Dropdown actions can now assume the selection is at the intended node
+    };
 
     const handleEditorClick = (event: React.MouseEvent<HTMLDivElement>) => {
         // Check if the left mouse button was clicked
         if (event.button === 0) { // 0 is the button value for the left mouse button
-          const { selection } = editor;
-          debugLog('selection', selection)
-        //   if (selection) {
-        //     // You might want to calculate the new path and offset here
-        //     const newPath = selection.focus.path;
-        //     const newOffset = selection.focus.offset;
-        //     updateSelection(editor, newPath, newOffset);
-        //   }
+            const { selection } = editor;
+            debugLog('selection', selection)
+            if (!selection) return;
+            const [node, path] = Editor.node(editor, selection.focus.path);
+            debugLog('node.type', node.type)
+            if (selection) {
+                // You might want to calculate the new path and offset here
+                const newPath = selection.focus.path;
+                const newOffset = selection.focus.offset;
+                updateSelection(editor, newPath, newOffset);
+            }
         }
-      };
+    };
 
     return (
         <Slate editor={editor} initialValue={value} onChange={handleEditorChange}>
@@ -295,7 +318,7 @@ const SpeedEditor: React.FC = () => {
 
 
 const Toolbar: React.FC = () => {
-    const editor = useSlateStatic();    
+    const editor = useSlateStatic();
 
     const setNodeType = (type: FountainTypes) => {
         if (!editor.selection) return;
