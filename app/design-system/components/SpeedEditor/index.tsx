@@ -6,7 +6,7 @@ import { FountainTypes, FountainNode, CustomText } from './types';
 import { Dropdown } from '~/design-system';
 import { optionsForNodeType, nodeTypes, textExample } from './constants';
 import { assignSceneNumbers } from './functions'
-
+import { debugLog } from '~/utils'
 
 const SpeedEditor: React.FC = () => {
     const editor = useMemo(() => withReact(createEditor()), []);
@@ -16,16 +16,19 @@ const SpeedEditor: React.FC = () => {
 
     const updateCurrentNodePrefix = (editor: Editor, newPrefix: string) => {
         const { selection } = editor;
-
+        debugLog('newPrefix', newPrefix)
+        // console.log('update Prefix', newPrefix)
+        console.log("!selection", !selection, selection)
         // Ensure that there is a current selection in the editor
         if (!selection) return;
 
         // Get the current node at the selection
         const [node, path] = Editor.node(editor, selection.focus.path);
-
+        console.log('node.type', node.type)
         // Check if the node is of a type that should have a prefix (e.g., 'scene_heading')
         if (node.type === 'scene_heading') {
             // Set the new prefix
+            console.log("path", path)
             Transforms.setNodes(editor, { prefix: newPrefix }, { at: path });
         }
     };
@@ -175,6 +178,9 @@ const SpeedEditor: React.FC = () => {
         console.log("event.key", event.key)
 
         switch (event.key) {
+            case 'Escape': 
+                event.preventDefault();
+                break;
             case 'Enter':
                 if (event.shiftKey) {
                     console.log("Shift + Enter was pressed");
@@ -241,11 +247,38 @@ const SpeedEditor: React.FC = () => {
         // You can add additional logic here if needed
     };
 
+    function updateSelection(editor: Editor, newPath: number[], newOffset: number) {
+        if (Editor.hasFocus(editor)) {
+          const newSelection = {
+            anchor: { path: newPath, offset: newOffset },
+            focus: { path: newPath, offset: newOffset }
+          };
+          Transforms.select(editor, newSelection);
+        } else {
+          console.log("Editor does not have focus");
+        }
+      }
+
+    const handleEditorClick = (event: React.MouseEvent<HTMLDivElement>) => {
+        // Check if the left mouse button was clicked
+        if (event.button === 0) { // 0 is the button value for the left mouse button
+          const { selection } = editor;
+          debugLog('selection', selection)
+        //   if (selection) {
+        //     // You might want to calculate the new path and offset here
+        //     const newPath = selection.focus.path;
+        //     const newOffset = selection.focus.offset;
+        //     updateSelection(editor, newPath, newOffset);
+        //   }
+        }
+      };
+
     return (
         <Slate editor={editor} initialValue={value} onChange={handleEditorChange}>
             <Editable
                 className="screenplay h-[92vh]"
                 renderElement={renderElement}
+                onClick={handleEditorClick}
                 onContextMenu={handleRightClick}
                 onFocus={updatePopoverPosition}
                 onKeyDown={handleKeyDown} />
