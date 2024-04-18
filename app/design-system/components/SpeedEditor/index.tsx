@@ -7,6 +7,18 @@ import { Dropdown } from '~/design-system';
 import { optionsForNodeType, nodeTypes, textExample } from './constants';
 import { assignSceneNumbers } from './functions'
 import { debugLog } from '~/utils'
+import { invoke } from '@tauri-apps/api/tauri';
+
+const testDbConnection = async () => {
+    try {
+        const response = await invoke('test_connection');
+        console.log(response);
+        alert(response);
+    } catch (error) {
+        console.error('Error testing connection:', error);
+        alert('Connection test failed: ' + error);
+    }
+};
 
 const SpeedEditor: React.FC = () => {
     const editor = useMemo(() => withReact(createEditor()), []);
@@ -314,6 +326,11 @@ const SpeedEditor: React.FC = () => {
         }
     };
 
+    React.useEffect(() => {
+        console.log('hello')
+        testDbConnection()
+    }, [])
+
     return (
         <Slate editor={editor} initialValue={value} onChange={handleEditorChange}>
             <Editable
@@ -371,6 +388,7 @@ const Toolbar: React.FC = () => {
     const currentType = getCurrentNodeType();
 
     const currentOptions = currentType ? optionsForNodeType[currentType] : nodeTypes;
+
 
     return (
         <div className="toolbar-menu">

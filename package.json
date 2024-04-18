@@ -1,7 +1,7 @@
 {
   "name": "filmscript-composer",
   "private": true,
-  "version": "0.0.8-0aa3643aa3e8",
+  "version": "0.0.9",
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -24,6 +24,7 @@
     "@headlessui/react": "^1.7.18",
     "@remix-run/node": "^2.8.1",
     "@remix-run/react": "^2.8.1",
+    "@tauri-apps/api": "^1.5.3",
     "ahooks": "^3.7.10",
     "date-fns": "^3.6.0",
     "dayzed": "^3.2.3",
