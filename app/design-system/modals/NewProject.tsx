@@ -1,37 +1,43 @@
 import React from 'react';
 import { Form } from '~/design-system';
-import { useModal } from '~/context/Modal';
+import { useModal, useProject } from '~/context';
 import { createNewProject } from '~/utils';
-// import { useNotification } from '~/context/Notification';
 
 type NewProjectType = {
 }
 
 export const NewProject: React.FunctionComponent<NewProjectType> = () => {
   const { closeModal } = useModal()
+  const { setProjectId } = useProject()
 
+  const afterSubmit = async (event: any) => {
+    const projectId = await createNewProject(event)
+    setProjectId(String(projectId));
+    closeModal()
+  }
   return (
     <div className="flex flex-col space-y-4">
       <div>
-        <div className="text-subheading-bold text-neutral-800">New Project</div>
+        <div className="text-subheading-bold text-neutral-100">New Project</div>
       </div>
       <Form
         debug={false}
         type="dynamic"
         mode="function"
         preventDefault={true}
-        afterSubmit={(event: any) => createNewProject(event)}
+        afterSubmit={afterSubmit}
         fields={[
           {
             field: {
-            type: 'text',
-            id: 'project_name',
-            label: 'Name',
-            placeholder: 'Untitled',
-            required: true,
-          }},
+              type: 'text',
+              id: 'project_name',
+              label: 'Name',
+              placeholder: 'Untitled',
+              required: true,
+            }
+          },
         ]}
-        button={{ text: "Create", variant: 'primary' }}
+        button={{ text: "Create", variant: 'neutral' }}
       />
     </div>
   );

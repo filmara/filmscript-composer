@@ -23,11 +23,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="midnight">
-        <ModalProvider>
-          <ProjectProvider>
+        <ProjectProvider>
+          <ModalProvider>
             {children}
-          </ProjectProvider>
-        </ModalProvider>
+          </ModalProvider>
+        </ProjectProvider>
+
         <ScrollRestoration />
         <Scripts />
       </body>
