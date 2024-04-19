@@ -6,6 +6,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import styleUrl from '~/assets/index.css?url';
+import { ProjectProvider } from "./context/Project";
 
 export const links = () => {
   return [{ rel: 'stylesheet', href: "https://use.typekit.net/vkh2lev.css" },
@@ -22,7 +23,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="midnight">
-        {children}
+        <ProjectProvider>
+          {children}
+        </ProjectProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

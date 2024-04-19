@@ -1,5 +1,5 @@
 import type { MetaFunction } from "@remix-run/node";
-import { Button } from "~/design-system";
+import { SpeedEditor, Menu, Header } from '~/design-system/components';
 
 export const meta: MetaFunction = () => {
   return [
@@ -8,10 +8,12 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default function Index() {
+export default function Writer() {
   return (
     <div>
-        <Button text="New Project" />
+        <Header />
+        <SpeedEditor />
+        <Menu />
     </div>
   );
 }

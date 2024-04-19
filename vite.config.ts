@@ -10,6 +10,9 @@ export default defineConfig({
   server: {
     host: '127.0.0.1',
     strictPort: true,
+    watch: {
+      ignored: ['./database/app.db'] // Adjust the path as necessary
+    }
   },
   // to access the Tauri environment variables set by the CLI with information about the current target
   envPrefix: ['VITE_', 'TAURI_PLATFORM', 'TAURI_ARCH', 'TAURI_FAMILY', 'TAURI_PLATFORM_VERSION', 'TAURI_PLATFORM_TYPE', 'TAURI_DEBUG'],

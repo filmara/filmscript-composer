@@ -46,3 +46,4 @@ export {
     Checkbox,
     type FieldProps,
   } from './shared';
+  export { NewProject } from './modals'

@@ -2,7 +2,7 @@
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
     "beforeBuildCommand": "npm run remix:build",
-    "beforeDevCommand": "npm run remix:dev",
+    "beforeDevCommand": "npm run dev",
     "devPath": "http://127.0.0.1:5173",
     "distDir": "../build/client"
   },
