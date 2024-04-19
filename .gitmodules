@@ -1,3 +1,6 @@
 [submodule "app/design-system/shared"]
 	path = app/design-system/shared
 	url = git@github.com:hacksur/shared.git
+[submodule "app/utils"]
+	path = app/utils
+	url = git@github.com:filmara/utils.git
