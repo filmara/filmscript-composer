@@ -62,12 +62,26 @@ fn create_project(project_name: String) -> Result<i64, String> {
 #[tauri::command]
 fn save_scene(project_id: i64, scene_data: String, order: i32) -> Result<(), String> {
     let conn = Connection::open(DATABASE_PATH).map_err(|e| e.to_string())?;
-    conn.execute(
-        "INSERT INTO scenes (project_id, data, \"order\", created_at, updated_at) VALUES (?1, ?2, ?3, datetime('now'), datetime('now'))",
-        params![project_id, scene_data, order],
-    ).map_err(|e| e.to_string())?;
+    let scene_exists: i64 = conn.query_row(
+        "SELECT COUNT(*) FROM scenes WHERE project_id = ?1 AND \"order\" = ?2",
+        params![project_id, order],
+        |row| row.get(0),
+    ).unwrap_or(0);
+
+    if scene_exists > 0 {
+        conn.execute(
+            "UPDATE scenes SET data = ?1, updated_at = datetime('now') WHERE project_id = ?2 AND \"order\" = ?3",
+            params![scene_data, project_id, order],
+        ).map_err(|e| e.to_string())?;
+    } else {
+        conn.execute(
+            "INSERT INTO scenes (project_id, data, \"order\", created_at, updated_at) VALUES (?1, ?2, ?3, datetime('now'), datetime('now'))",
+            params![project_id, scene_data, order],
+        ).map_err(|e| e.to_string())?;
+    }
     Ok(())
 }
+
 
 #[tauri::command]
 fn load_scenes(project_id: i64) -> Result<Vec<String>, String> {

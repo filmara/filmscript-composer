@@ -12,7 +12,7 @@ const StatusBar: React.FC<StatusBarProps> = ({ projectId }) => {
   useEffect(() => {
     const handleAutoSave = async () => {
       // Simulate an API call to save the editor state
-      splitAndSaveScenes(value)
+      splitAndSaveScenes(Number(projectId), value)
       console.log('Auto-saving content:', value);
       // Here you would typically call an API to save the content
     };
