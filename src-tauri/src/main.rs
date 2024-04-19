@@ -84,22 +84,35 @@ fn save_scene(project_id: i64, scene_data: String, order: i32) -> Result<(), Str
 
 
 #[tauri::command]
-fn load_scenes(project_id: i64) -> Result<Vec<String>, String> {
-    let conn = rusqlite::Connection::open(DATABASE_PATH).map_err(|e| e.to_string())?;
-    let mut stmt = conn.prepare(
-        "SELECT data FROM scenes WHERE project_id = ? ORDER BY \"order\""
-    ).map_err(|e| e.to_string())?;
+fn load_scenes(project_id: i64) -> Result<Vec<(i32, String)>, String> {
+    let conn = Connection::open(DATABASE_PATH).map_err(|e| e.to_string())?;
+    let mut stmt = conn.prepare("SELECT \"order\", data FROM scenes WHERE project_id = ? ORDER BY \"order\"").map_err(|e| e.to_string())?;
+    let scenes = stmt.query_map(params![project_id], |row| {
+        Ok((row.get(0)?, row.get(1)?))
+    }).map_err(|e| e.to_string())?
+    .collect::<Result<Vec<(i32, String)>, rusqlite::Error>>()
+    .map_err(|e| e.to_string())?;
 
-    let scenes_iter = stmt.query_map(params![project_id], |row| {
-        row.get(0)
-    }).map_err(|e| e.to_string())?;
-
-    let mut scenes = Vec::new();
-    for scene in scenes_iter {
-        scenes.push(scene.map_err(|e| e.to_string())?);
-    }
     Ok(scenes)
 }
+
+// #[tauri::command]
+// fn load_scenes(project_id: i64) -> Result<Vec<String>, String> {
+//     let conn = rusqlite::Connection::open(DATABASE_PATH).map_err(|e| e.to_string())?;
+//     let mut stmt = conn.prepare(
+//         "SELECT data FROM scenes WHERE project_id = ? ORDER BY \"order\""
+//     ).map_err(|e| e.to_string())?;
+
+//     let scenes_iter = stmt.query_map(params![project_id], |row| {
+//         row.get(0)
+//     }).map_err(|e| e.to_string())?;
+
+//     let mut scenes = Vec::new();
+//     for scene in scenes_iter {
+//         scenes.push(scene.map_err(|e| e.to_string())?);
+//     }
+//     Ok(scenes)
+// }
    
 
 

@@ -12,7 +12,7 @@ interface SpeedEditorProps {
 const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
     console.log('projectId', projectId)
     return (
-        <EditorProvider initialValue={textExample}>
+        <EditorProvider initialValue={textExample} projectId={projectId}>
             <Editor projectId={projectId} />
             <StatusBar projectId={projectId} />
         </EditorProvider>

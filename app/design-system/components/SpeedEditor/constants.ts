@@ -1,6 +1,10 @@
 import { FountainTypes, FountainNode, CustomText } from './types';
 import { Descendant } from 'slate';
 
+export const emptyPage: Descendant[] = [
+    { children: [{ text: "", type: 'action'}] },
+]
+
 export const textExample: Descendant[] = [
     { children: [{ text: "BRICK'S PATIO - DAY", type: 'scene_heading', prefix: 'EXT.' }] },
     { children: [{ text: "A gorgeous day.  The sun is shining.  But BRICK BRADDOCK, retired police detective, is sitting quietly, contemplating -- something.", type: 'action' }] },

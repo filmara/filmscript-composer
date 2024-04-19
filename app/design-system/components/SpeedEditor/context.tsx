@@ -1,5 +1,7 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { Descendant } from 'slate';
+import { loadScenes } from '~/utils';
+import { emptyPage } from './constants';
 
 // Define the type for the editor context
 interface EditorContextType {
@@ -13,11 +15,27 @@ const EditorContext = createContext<EditorContextType | undefined>(undefined);
 // Define the provider component
 interface EditorProviderProps {
   children: ReactNode;
+  projectId: string;
   initialValue: Descendant[];
 }
 
-export const EditorProvider: React.FC<EditorProviderProps> = ({ children, initialValue }) => {
-  const [value, setValue] = useState<Descendant[]>(initialValue);
+export const EditorProvider: React.FC<EditorProviderProps> = ({ children, initialValue, projectId }) => {
+
+  const [value, setValue] = useState<Descendant[]>(emptyPage);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const sceneData = await loadScenes(Number(25))
+        console.log('sceneData', sceneData)
+        if (sceneData) {
+          setValue(sceneData)
+        }
+      } catch (error) {
+        console.error('Failed to fetch scenes', error);
+      }
+    })();
+  }, [])
 
   return (
     <EditorContext.Provider value={{ value, setValue }}>
