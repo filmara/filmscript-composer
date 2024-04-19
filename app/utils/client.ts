@@ -11,12 +11,6 @@ const testDbConnection = async () => {
     }
 };
 
-/**
- * Saves scene data to the database.
- * @param projectId The ID of the project this scene belongs to.
- * @param sceneData The data of the scene to be saved, typically JSON stringified.
- * @param order The order of the scene within the project.
- */
 const saveScene = async (projectId: number, sceneData: string, order: number): Promise<void> => {
     try {
         await invoke('save_scene', { projectId, sceneData, order });
@@ -26,4 +20,33 @@ const saveScene = async (projectId: number, sceneData: string, order: number): P
     }
 }
 
-export { testDbConnection, saveScene }
+type FormOutput = { id: string; value: string }[];
+
+const createNewProject = async (formData: FormOutput): Promise<number> => {
+    try {
+        // Extract project name using the utility function
+        const { project_name } = findValuesByIds(formData, ['project_name']);
+        if (!project_name) {
+            throw new Error("Project name is required");
+        }
+
+        // Call the backend with the extracted project name
+        const projectId = await invoke('create_project', { projectName: project_name });
+        return projectId as number;
+    } catch (error) {
+        console.error('Failed to create project', error);
+        throw error;
+    }
+};
+
+// Helper function to find values by ID
+const findValuesByIds = (formData: FormOutput, ids: string[]): Record<string, string | undefined> => {
+    return ids.reduce((acc, id) => {
+        const item = formData.find(item => item.id === id);
+        acc[id] = item ? item.value : undefined;
+        return acc;
+    }, {} as Record<string, string | undefined>);
+};
+
+
+export { testDbConnection, saveScene, createNewProject }

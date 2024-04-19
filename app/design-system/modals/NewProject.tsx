@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form } from '~/design-system';
 import { useModal } from '~/context/Modal';
+import { createNewProject } from '~/utils';
 // import { useNotification } from '~/context/Notification';
 
 type NewProjectType = {
@@ -17,6 +18,9 @@ export const NewProject: React.FunctionComponent<NewProjectType> = () => {
       <Form
         debug={false}
         type="dynamic"
+        mode="function"
+        preventDefault={true}
+        afterSubmit={(event: any) => createNewProject(event)}
         fields={[
           {
             field: {
@@ -27,7 +31,7 @@ export const NewProject: React.FunctionComponent<NewProjectType> = () => {
             required: true,
           }},
         ]}
-        button={{ text, variant: 'primary' }}
+        button={{ text: "Create", variant: 'primary' }}
       />
     </div>
   );

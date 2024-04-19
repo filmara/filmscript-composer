@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { ReactNode } from 'react';
 import { NewProject } from '~/design-system';
 import { Modal as ModalComponent } from '~/design-system';
 
@@ -37,7 +37,7 @@ export const ModalContext = React.createContext<ModalContextType>(
   {} as ModalContextType
 );
 
-export const ModalProvider: FunctionComponent = ({ children }: any) => {
+export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isOpen, setIsOpen] = React.useState(false);
   const [state, setState] = React.useState({
     type: '',

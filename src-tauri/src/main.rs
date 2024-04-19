@@ -9,7 +9,7 @@ fn main() {
     setup_database().expect("Failed to setup database");
 
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![save_scene, test_connection, load_scenes])
+        .invoke_handler(tauri::generate_handler![save_scene, test_connection, load_scenes, create_project])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -33,6 +33,18 @@ fn setup_database() -> SqlResult<()> {
         );
     ")?;
     Ok(())
+}
+
+#[tauri::command]
+fn create_project(project_name: String) -> Result<i64, String> {
+    let conn = Connection::open(DATABASE_PATH).map_err(|e| e.to_string())?;
+    conn.execute(
+        "INSERT INTO projects (name, last_modified) VALUES (?1, datetime('now'))",
+        params![project_name],
+    ).map_err(|e| e.to_string())?;
+
+    let project_id = conn.last_insert_rowid();
+    Ok(project_id)
 }
 
 #[tauri::command]
