@@ -1,7 +1,8 @@
 import React from 'react';
 import { Button, Dropdown } from '~/design-system'
-import { saveScene } from '~/utils'
+import { saveScene, splitAndSaveScenes } from '~/utils'
 import { useProject} from '~/context';
+import { textExample } from './SpeedEditor/constants';
 export type HeaderProps = { // Array of button texts
 };
 
@@ -18,7 +19,7 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
             onClick: (event) => console.log('')
         }}
         items={[
-            { text: 'Save Project', type: 'button', action: () => saveScene(1, 'Scene Data', 1) },
+            { text: 'Save Project', type: 'button', action: () => splitAndSaveScenes(textExample) },
             { text: 'Close', type: 'button', action: () => setProjectId(null) }
         ]}
       />

@@ -1,6 +1,8 @@
 import type { MetaFunction } from "@remix-run/node";
+import { useEffect, useState } from "react";
 import { Button } from "~/design-system";
 import { useModal } from '~/context';
+import { fetchProjects } from '~/utils';
 
 export const meta: MetaFunction = () => {
   return [
@@ -11,7 +13,17 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const { openModal } = useModal();
-  
+  const [projects, setProjects] = useState<[number, string][]>([]);
+  useEffect(() => {
+    (async () => {
+      try {
+        const projectData = await fetchProjects();
+        setProjects(projectData);
+      } catch (error) {
+        console.error('Failed to fetch projects', error);
+      }
+    })();
+  }, []);
   return (
     <div>
       <Button text="New Project" onClick={() => openModal({
@@ -19,6 +31,9 @@ export default function Index() {
         padding: 'large',
         size: 'medium'
       })} />
+      {projects.map(([id, name]) => (
+        <div key={id} className="text-neutral-200">{name}</div>
+      ))}
     </div>
   );
 }

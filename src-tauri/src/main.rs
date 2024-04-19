@@ -9,7 +9,7 @@ fn main() {
     setup_database().expect("Failed to setup database");
 
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![save_scene, test_connection, load_scenes, create_project])
+        .invoke_handler(tauri::generate_handler![save_scene, test_connection, load_scenes, create_project, get_projects])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -34,6 +34,18 @@ fn setup_database() -> SqlResult<()> {
     ")?;
     Ok(())
 }
+
+#[tauri::command]
+fn get_projects() -> Result<Vec<(i64, String)>, String> {
+    let conn = Connection::open(DATABASE_PATH).map_err(|e| e.to_string())?;
+    let mut stmt = conn.prepare("SELECT id, name FROM projects").map_err(|e| e.to_string())?;
+    let projects = stmt.query_map([], |row| {
+        Ok((row.get(0)?, row.get(1)?))
+    }).map_err(|e| e.to_string())?
+    .collect::<Result<Vec<(i64, String)>, rusqlite::Error>>().map_err(|e| e.to_string())?;
+    Ok(projects)
+}
+
 
 #[tauri::command]
 fn create_project(project_name: String) -> Result<i64, String> {
