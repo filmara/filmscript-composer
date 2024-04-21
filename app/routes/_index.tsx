@@ -30,21 +30,19 @@ export default function Index() {
   }, []);
 
   return (
-    <div>
-      <Container>
-        <>
-          <Button text="New Project" onClick={() => openModal({
-            type: 'new_project', showBar: false,
-            padding: 'large',
-            size: 'medium'
-          })} />
-          {projects.map(([id, name]) => (
-            <div key={id}>
-              <Button text={name} variant="outline" size="tiny" onClick={() => setProject({ id: String(id), name })} />
-            </div>
-          ))}
-        </>
-      </Container>
+    <div className="p-8 h-[100vh]">
+      <div className="p-4 rounded-md border-2 border-neutral-1800 bg-neutral-2200">
+        <Button text="New Project" onClick={() => openModal({
+          type: 'new_project', showBar: false,
+          padding: 'large',
+          size: 'medium'
+        })} />
+        {projects.map(([id, name]) => (
+          <div key={id}>
+            <Button text={name} variant="outline" size="tiny" onClick={() => setProject({ id: String(id), name })} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

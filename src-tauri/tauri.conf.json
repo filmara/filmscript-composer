@@ -57,8 +57,10 @@
       {
         "fullscreen": false,
         "height": 600,
+        "decorations": true,
         "resizable": true,
-        "title": "Filmscript Composer",
+        "titleBarStyle": "Overlay",
+        "title": "",
         "width": 800
       }
     ]

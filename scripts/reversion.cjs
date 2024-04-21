@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { exec } = require('child_process'); // Import exec from child_process
 
 // Correctly resolve the path to package.json
 const packageJsonPath = path.join(__dirname, '..', 'package.json');
@@ -21,3 +22,17 @@ packageJson.version = newVersion;
 // Write the updated package.json back to file
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 console.log(`Version updated to ${newVersion}`);
+
+// Run git commands to add changes and commit
+const gitCommand = `git add . && git commit -m "${newVersion}"`;
+exec(gitCommand, (error, stdout, stderr) => {
+  if (error) {
+    console.error(`Error executing git command: ${error}`);
+    return;
+  }
+  if (stderr) {
+    console.error(`Error in git operations: ${stderr}`);
+    return;
+  }
+  console.log(`Git commit successful: ${stdout}`);
+});

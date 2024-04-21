@@ -2,7 +2,7 @@ const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./app/components/**/*.tsx", "./app/design-system/**/*.tsx", "./app/design-system/shared/components/**/*.tsx"],
+  content: ["./app/routes/**/*.tsx", "./app/components/**/*.tsx", "./app/design-system/**/*.tsx", "./app/design-system/shared/components/**/*.tsx"],
   safelist: [
     'text-paragraph-medium-underlined',
     'bg-background',
