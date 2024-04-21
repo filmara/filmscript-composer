@@ -440,19 +440,17 @@ body {
     color: #bcbcbc;
     background-color: #2d2d2d;
     outline: none;
-    margin: 20px;
+    margin: 0px auto; /* Updated to consolidate the margin property */
     padding: 20px 20px 20px 74px;
     border: 0;
-    font-size: 100%;
-    font: inherit;
-    overflow-y: hidden;
+    font-size: 12pt; /* Consolidated font-size property */
+    font-family: "courier-std", monospace; /* Consolidated font-family property */
+    overflow-y: auto; /* Changed from 'hidden' to 'auto' */
     vertical-align: baseline;
-    margin: auto;
     text-align: left;
-    font-family: "courier-std", monospace;
-    font-size: 12pt;
     position: static;
 }
+
 
 .screenplay ::selection {
     background-color: #ffb7b7;

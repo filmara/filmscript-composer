@@ -22,7 +22,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <body className="midnight">
+      <body className="midnight overflow-hidden">
         <ProjectProvider>
           <ModalProvider>
             {children}

@@ -1,7 +1,7 @@
 {
   "name": "filmscript-composer",
   "private": true,
-  "version": "0.0.14",
+  "version": "0.0.14-fcd94b3ea11d",
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -10,8 +10,8 @@
     "remix:build": "remix vite:build",
     "storybook:watch": "storybook dev -p 6006",
     "storybook:build": "storybook build",
-    "tailwind:build": "npx tailwindcss build -i app/assets/main.css -o app/assets/index.css -c tailwind.config.js",
-    "tailwind:watch": "npx tailwindcss -i app/assets/main.css -o app/assets/index.css -c tailwind.config.js --watch",
+    "tailwind:build": "npx tailwindcss build -i app/assets/style.css -o app/assets/index.css -c tailwind.config.js",
+    "tailwind:watch": "npx tailwindcss -i app/assets/style.css -o app/assets/index.css -c tailwind.config.js --watch",
     "lint": "eslint --ignore-path .gitignore --cache --cache-location ./node_modules/.cache/eslint .",
     "preview": "vite preview",
     "typecheck": "tsc",

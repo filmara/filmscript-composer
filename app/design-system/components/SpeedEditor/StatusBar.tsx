@@ -25,8 +25,8 @@ const StatusBar: React.FC<StatusBarProps> = ({ projectId }) => {
   }, [value]);
 
   return (
-    <div style={{ padding: '10px', backgroundColor: '#f0f0f0', borderTop: '1px solid #ddd' }}>
-      <span>Status: Connected</span> {/* Example status */}
+    <div className="bg-neutral-2200 h-[2vh] text-neutral-900 text-footer-light">
+      <span className="px-2">Status: Connected</span> {/* Example status */}
       {/* Additional UI elements for the status bar can be added here */}
     </div>
   );

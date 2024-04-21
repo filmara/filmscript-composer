@@ -23,7 +23,7 @@ export const Menu: React.FC<MenuProps> = ({}) => {
   // 'Director', 'Analytics', 'Export'
   const buttonLabels = ['Writer']
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-neutral-2400 h-20 flex justify-center items-center">
+    <div className="fixed bottom-0 left-0 right-0 bg-neutral-2400 h-[8vh] flex justify-center items-center">
       {buttonLabels.map(label => (
         <Button key={label} text={label} />
       ))}

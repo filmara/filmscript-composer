@@ -327,7 +327,7 @@ const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
     return (
         <Slate editor={editor} initialValue={value} onChange={handleEditorChange} key={projectId}>
             <Editable
-                className="screenplay h-[92vh]"
+                className="screenplay h-[88vh]"
                 renderElement={renderElement}
                 onClick={handleEditorClick}
                 onContextMenu={handleRightClick}

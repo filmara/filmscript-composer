@@ -1,6 +1,6 @@
 {
   "include": ["env.d.ts", "**/*.ts", "**/*.tsx", "app/**/*", "app/design-system/shared/stories/**/*", "app/assets/index.css"],
-  "exclude": ["node_modules", "lib", "app/assets/main.css"],
+  "exclude": ["node_modules", "lib", "app/assets/style.css"],
   "compilerOptions": {
     "lib": ["DOM", "DOM.Iterable", "ES2022"],
     "isolatedModules": true,

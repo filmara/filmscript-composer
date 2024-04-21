@@ -147,6 +147,9 @@ module.exports = {
         'button-large': ['20.2px', '20.2px']
       },
       height: {
+        v2: '2vh',
+        v4: '4vh',
+        v6: '6vh',
         v8: '8vh',
         v16: '16vh',
         v24: '24vh',
@@ -157,6 +160,7 @@ module.exports = {
         v68: '68vh',
         v76: '76vh',
         v84: '84vh',
+        v88: '88vh',
         v92: '92vh',
         safe: 'calc(100vh - env(safe-area-inset-bottom))'
       },
