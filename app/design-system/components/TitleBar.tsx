@@ -12,28 +12,17 @@ export function TitleBar() {
 
   useEffect(() => {
     setupAppWindow()
-  }, []) 
+  }, [])
 
-  // These 3 functions will see the "appWindow" stored inside the state
-  function windowMinimize() {
-    appWindow?.minimize()
-  }
-  function windowToggleMaximize() {
-    appWindow?.toggleMaximize()
-  }
-  function windowClose() {
-    appWindow?.close()
+  function startDragging(event) {
+    // Stop propagation to prevent interference with other button clicks
+    appWindow.startDragging();
   }
 
   // Use "onClick" on buttons and call the 3 functions above
   return (
     <>
-      <div data-tauri-drag-region>
-        <button onClick={windowMinimize}>min</button>
-
-        <button onClick={windowToggleMaximize}>max</button>
-
-        <button onClick={windowClose}>close</button>
+      <div data-tauri-drag-region style={{ height: '30px', width: '100%'}} onMouseDown={startDragging}>
       </div>
     </>
   )

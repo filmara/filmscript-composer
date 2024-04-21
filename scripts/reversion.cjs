@@ -23,16 +23,24 @@ packageJson.version = newVersion;
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 console.log(`Version updated to ${newVersion}`);
 
-// Run git commands to add changes and commit
-const gitCommand = `git add . && git commit -m "${newVersion}"`;
-exec(gitCommand, (error, stdout, stderr) => {
+// Run git commands to add changes, commit, and handle new branch creation and switching
+const gitCommands = `
+git add . && 
+git commit -m "${newVersion}" && 
+git checkout -b "${newVersion}" && 
+git push origin "${newVersion}" &&
+git checkout main &&
+open "https://github.com/filmara/filmscript-composer/pull/new/${newVersion}"
+`;
+
+exec(gitCommands, (error, stdout, stderr) => {
   if (error) {
-    console.error(`Error executing git command: ${error}`);
+    console.error(`Error executing git commands: ${error}`);
     return;
   }
   if (stderr) {
     console.error(`Error in git operations: ${stderr}`);
     return;
   }
-  console.log(`Git commit successful: ${stdout}`);
+  console.log(`Git operations successful: ${stdout}`);
 });

@@ -6,6 +6,7 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 import styleUrl from '~/assets/index.css?url';
+import { TitleBar } from '~/design-system/components';
 import { ProjectProvider, ModalProvider } from "./context";
 
 export const links = () => {
@@ -22,7 +23,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      
+      <TitleBar />
       <body className="midnight overflow-hidden">
         <ProjectProvider>
           <ModalProvider>
