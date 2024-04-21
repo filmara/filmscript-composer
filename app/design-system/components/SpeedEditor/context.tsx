@@ -7,6 +7,7 @@ import { emptyPage } from './constants';
 interface EditorContextType {
   value: Descendant[];
   setValue: (value: Descendant[]) => void;
+  loaded: boolean;
 }
 
 // Create the context
@@ -16,29 +17,33 @@ const EditorContext = createContext<EditorContextType | undefined>(undefined);
 interface EditorProviderProps {
   children: ReactNode;
   projectId: string;
-  initialValue: Descendant[];
 }
 
-export const EditorProvider: React.FC<EditorProviderProps> = ({ children, initialValue, projectId }) => {
+export const EditorProvider: React.FC<EditorProviderProps> = ({ children, projectId }) => {
 
   const [value, setValue] = useState<Descendant[]>(emptyPage);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    (async () => {
+    const fetchData = async () => {
       try {
-        const sceneData = await loadScenes(Number(25))
-        console.log('sceneData', sceneData)
+        const sceneData = await loadScenes(Number(projectId));  // Make sure to convert projectId to number correctly
         if (sceneData) {
-          setValue(sceneData)
+          setValue(sceneData);  // Set the fetched data
         }
+        setLoaded(true);  // Set loaded to true after fetching
       } catch (error) {
         console.error('Failed to fetch scenes', error);
+        setLoaded(false);  // Consider setting loaded to false in case of error
       }
-    })();
-  }, [])
-
+    };
+  
+    fetchData();
+  }, [projectId]);  // Depend on projectId to re-run the effect when it changes
+  
+  console.log('value', value)
   return (
-    <EditorContext.Provider value={{ value, setValue }}>
+    <EditorContext.Provider value={{ value, setValue, loaded }}>
       {children}
     </EditorContext.Provider>
   );

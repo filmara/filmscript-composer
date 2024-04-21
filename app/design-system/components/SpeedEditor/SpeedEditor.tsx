@@ -17,7 +17,7 @@ const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
 
     const editor = useMemo(() => withReact(createEditor()), []);
     // Initialize with an empty editor or default content
-    const { value, setValue } = useEditor();
+    const { value, setValue, loaded } = useEditor();
     // const [value, setValue] = useState<Descendant[]>(textExample);
     const updateCurrentNodePrefix = (editor: Editor, newPrefix: string) => {
         const { selection } = editor;
@@ -320,8 +320,12 @@ const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
         }
     };
 
+    if (!loaded) {
+        return <div>Loading...</div>; // or any other loading indicator
+    }
+    
     return (
-        <Slate editor={editor} initialValue={value} onChange={handleEditorChange}>
+        <Slate editor={editor} initialValue={value} onChange={handleEditorChange} key={projectId}>
             <Editable
                 className="screenplay h-[92vh]"
                 renderElement={renderElement}

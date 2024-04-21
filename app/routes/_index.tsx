@@ -1,7 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useState } from "react";
 import { Button } from "~/design-system";
-import { useModal } from '~/context';
+import { useModal, useProject } from '~/context';
 import { fetchProjects } from '~/utils';
 
 export const meta: MetaFunction = () => {
@@ -13,7 +13,11 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const { openModal } = useModal();
+
   const [projects, setProjects] = useState<[number, string][]>([]);
+
+  const { setProjectId } = useProject();
+
   useEffect(() => {
     (async () => {
       try {
@@ -24,6 +28,7 @@ export default function Index() {
       }
     })();
   }, []);
+
   return (
     <div>
       <Button text="New Project" onClick={() => openModal({
@@ -32,7 +37,9 @@ export default function Index() {
         size: 'medium'
       })} />
       {projects.map(([id, name]) => (
-        <div key={id} className="text-neutral-200">{name}</div>
+        <div key={id}>
+          <Button text={name} variant="outline" size="tiny" onClick={() => setProjectId(String(id))} />
+        </div>
       ))}
     </div>
   );
