@@ -4,3 +4,6 @@
 [submodule "app/utils"]
 	path = app/utils
 	url = git@github.com:filmara/utils.git
+[submodule "src-tauri/src/commands"]
+	path = src-tauri/src/commands
+	url = git@github.com:filmara/commands.git
