@@ -8,11 +8,11 @@ type NewProjectType = {
 
 export const NewProject: React.FunctionComponent<NewProjectType> = () => {
   const { closeModal } = useModal()
-  const { setProjectId } = useProject()
+  const { setProject } = useProject()
 
   const afterSubmit = async (event: any) => {
-    const projectId = await createNewProject(event)
-    setProjectId(String(projectId));
+    const { id, name } = await createNewProject(event)
+    setProject({ id, name });
     closeModal()
   }
   return (

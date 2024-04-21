@@ -1585,10 +1585,6 @@ select {
   height: 0.625rem;
 }
 
-.h-20 {
-  height: 5rem;
-}
-
 .h-3 {
   height: 0.75rem;
 }
@@ -1615,6 +1611,10 @@ select {
 
 .h-\[100px\] {
   height: 100px;
+}
+
+.h-\[100vh\] {
+  height: 100vh;
 }
 
 .h-\[14px\] {
@@ -1663,6 +1663,10 @@ select {
 
 .h-\[28px\] {
   height: 28px;
+}
+
+.h-\[2vh\] {
+  height: 2vh;
 }
 
 .h-\[300px\] {
@@ -1725,8 +1729,12 @@ select {
   height: 800px;
 }
 
-.h-\[92vh\] {
-  height: 92vh;
+.h-\[88vh\] {
+  height: 88vh;
+}
+
+.h-\[8vh\] {
+  height: 8vh;
 }
 
 .h-fit {
@@ -3281,6 +3289,10 @@ select {
   padding: 1rem;
 }
 
+.p-8 {
+  padding: 2rem;
+}
+
 .p-\[16px\] {
   padding: 16px;
 }
@@ -3565,10 +3577,6 @@ select {
 
 .pl-7 {
   padding-left: 1.75rem;
-}
-
-.pl-8 {
-  padding-left: 2rem;
 }
 
 .pl-\[20px\] {
@@ -4479,17 +4487,18 @@ body {
   color: #bcbcbc;
   background-color: #2d2d2d;
   outline: none;
-  margin: 20px;
+  margin: 0px auto;
+  /* Updated to consolidate the margin property */
   padding: 20px 20px 20px 74px;
   border: 0;
-  font-size: 100%;
-  font: inherit;
-  overflow-y: hidden;
-  vertical-align: baseline;
-  margin: auto;
-  text-align: left;
-  font-family: "courier-std", monospace;
   font-size: 12pt;
+  /* Consolidated font-size property */
+  font-family: "courier-std", monospace;
+  /* Consolidated font-family property */
+  overflow-y: auto;
+  /* Changed from 'hidden' to 'auto' */
+  vertical-align: baseline;
+  text-align: left;
   position: static;
 }
 

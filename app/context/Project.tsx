@@ -1,28 +1,32 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from "@remix-run/react";
 
+type Project = {
+  id: string;
+  name: string;
+} | null
+
 interface ProjectContextType {
-  projectId: string | null;
-  setProjectId: (id: string | null) => void;
+  project: Project
+  setProject: (project: Project) => void;
 }
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 
 export const ProjectProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [projectId, setProjectId] = useState<string | null>(null);
+  const [project, setProject] = useState<Project>(null);
   const navigate = useNavigate();
 
   useEffect(() => { 
-    if (projectId) {
+    if (project) {
       navigate('/writer')
     } else {
       navigate('/')
     }
-  }, [projectId])
+  }, [project])
 
   return (
-    <ProjectContext.Provider value={{ projectId, setProjectId }}>
-      {projectId}
+    <ProjectContext.Provider value={{ project, setProject }}>
       {children}
     </ProjectContext.Provider>
   );

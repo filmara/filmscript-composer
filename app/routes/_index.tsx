@@ -1,6 +1,6 @@
 import type { MetaFunction } from "@remix-run/node";
 import { useEffect, useState } from "react";
-import { Button } from "~/design-system";
+import { Button, Container } from "~/design-system";
 import { useModal, useProject } from '~/context';
 import { fetchProjects } from '~/utils';
 
@@ -16,7 +16,7 @@ export default function Index() {
 
   const [projects, setProjects] = useState<[number, string][]>([]);
 
-  const { setProjectId } = useProject();
+  const { setProject } = useProject();
 
   useEffect(() => {
     (async () => {
@@ -30,17 +30,19 @@ export default function Index() {
   }, []);
 
   return (
-    <div>
-      <Button text="New Project" onClick={() => openModal({
-        type: 'new_project', showBar: false,
-        padding: 'large',
-        size: 'medium'
-      })} />
-      {projects.map(([id, name]) => (
-        <div key={id}>
-          <Button text={name} variant="outline" size="tiny" onClick={() => setProjectId(String(id))} />
-        </div>
-      ))}
+    <div className="p-8 h-[100vh]">
+      <div className="p-4 rounded-md border-2 border-neutral-1800 bg-neutral-2200">
+        <Button text="New Project" onClick={() => openModal({
+          type: 'new_project', showBar: false,
+          padding: 'large',
+          size: 'medium'
+        })} />
+        {projects.map(([id, name]) => (
+          <div key={id}>
+            <Button text={name} variant="outline" size="tiny" onClick={() => setProject({ id: String(id), name })} />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

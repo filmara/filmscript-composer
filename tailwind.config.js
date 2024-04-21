@@ -2,7 +2,7 @@ const colors = require('tailwindcss/colors');
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./app/components/**/*.tsx", "./app/design-system/**/*.tsx", "./app/design-system/shared/components/**/*.tsx"],
+  content: ["./app/routes/**/*.tsx", "./app/components/**/*.tsx", "./app/design-system/**/*.tsx", "./app/design-system/shared/components/**/*.tsx"],
   safelist: [
     'text-paragraph-medium-underlined',
     'bg-background',
@@ -147,6 +147,9 @@ module.exports = {
         'button-large': ['20.2px', '20.2px']
       },
       height: {
+        v2: '2vh',
+        v4: '4vh',
+        v6: '6vh',
         v8: '8vh',
         v16: '16vh',
         v24: '24vh',
@@ -157,6 +160,7 @@ module.exports = {
         v68: '68vh',
         v76: '76vh',
         v84: '84vh',
+        v88: '88vh',
         v92: '92vh',
         safe: 'calc(100vh - env(safe-area-inset-bottom))'
       },
