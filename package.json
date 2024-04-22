@@ -1,7 +1,7 @@
 {
   "name": "filmscript-composer",
   "private": false,
-  "version": "0.0.14-7d003f680169",
+  "version": "0.0.15-931f8b05a166",
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -16,7 +16,13 @@
     "preview": "vite preview",
     "typecheck": "tsc",
     "tauri": "tauri",
-    "pull-request": "node ./scripts/pull-request.cjs"
+    "pull-request": "node ./scripts/pull-request.cjs",
+    "pull-shared": "node ./scripts/pull-shared.cjs",
+    "pull-utils": "node ./scripts/pull-utils.cjs",
+    "pull-commands": "node ./scripts/pull-commands.cjs",
+    "update-shared": "node ./scripts/update-shared.cjs",
+    "update-utils": "node ./scripts/update-utils.cjs",
+    "update-commands": "node ./scripts/update-commands.cjs"
   },
   "dependencies": {
     "@h6s/calendar": "^2.0.1",
