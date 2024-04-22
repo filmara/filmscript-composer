@@ -73,7 +73,7 @@ const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
             case 'parenthetical':
                 return <div className="parenthetical" {...attributes}>{children}</div>;
             case 'transition':
-                return <div className="transition" {...attributes}>{children}</div>;
+                return <div className="text-neutral-900 bg-neutral-1800" {...attributes}>{children}</div>;
             case 'note':
                 return <div className="note" {...attributes}>{children}</div>;
             case 'section':
@@ -113,6 +113,7 @@ const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
             }
             Transforms.setNodes(editor, { type }, { at: path });
         };
+
         const checkAndUpdateNode = () => {
             if (/^[A-Z]+$/.test(nodeText)) return updateType('character');
             if (nodeText.startsWith('!')) return updateType('action');
@@ -181,20 +182,21 @@ const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
             const wordBefore = Editor.before(editor, start, { unit: 'word' });
             const beforeRange = wordBefore && Editor.range(editor, wordBefore, start);
             const beforeText = beforeRange && Editor.string(editor, beforeRange);
-
+    
             const scenePrefixes = ['INT.', 'EXT.'];
+            const transitionPrefix = '>';
+    
             if (scenePrefixes.includes(beforeText)) {
-                // Prevent default behavior
-                event.preventDefault();
-
-                // Update the node type to 'scene_heading' and store the prefix
                 Transforms.setNodes(editor, { type: 'scene_heading', prefix: beforeText }, { at: selection.focus.path });
-
-                // Replace the word with an empty string to remove it
+                Transforms.delete(editor, { at: beforeRange });
+            } else if (beforeText === transitionPrefix) {
+                console.log('transitionPrefix', transitionPrefix, beforeText)
+                Transforms.setNodes(editor, { type: 'transition', prefix: beforeText }, { at: selection.focus.path });
                 Transforms.delete(editor, { at: beforeRange });
             }
         }
     };
+    
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
         console.log("event.key", event.key)

@@ -11,13 +11,11 @@ const StatusBar: React.FC<StatusBarProps> = ({ projectId }) => {
 
   useEffect(() => {
     const handleAutoSave = async () => {
-      // Simulate an API call to save the editor state
       splitAndSaveScenes(Number(projectId), value)
-      console.log('Auto-saving content:', value);
-      // Here you would typically call an API to save the content
+      // console.log('Auto-saving content:', value);
     };
 
-    // Set up an interval for auto-saving every 30 seconds
+    // Set up an interval for auto-saving every 5 seconds
     const autoSaveInterval = setInterval(handleAutoSave, 5000);
 
     // Cleanup function to clear the interval when the component unmounts
@@ -26,8 +24,6 @@ const StatusBar: React.FC<StatusBarProps> = ({ projectId }) => {
 
   return (
     <div className="bg-neutral-2200 h-[2vh] text-neutral-900 text-footer-light">
-      <span className="px-2">Status: Connected</span> {/* Example status */}
-      {/* Additional UI elements for the status bar can be added here */}
     </div>
   );
 };

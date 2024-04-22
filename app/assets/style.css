@@ -482,6 +482,10 @@ body {
     text-align: left;
 }
 
+.screenplay>.transition {
+    color: h
+}
+
 .underline {
     text-decoration: underline;
 }

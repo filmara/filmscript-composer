@@ -19,7 +19,7 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({ children })
 
   useEffect(() => { 
     if (project) {
-      navigate('/writer')
+      navigate('/script')
     } else {
       navigate('/')
     }

@@ -16,13 +16,14 @@ export function TitleBar() {
 
   function startDragging(event) {
     // Stop propagation to prevent interference with other button clicks
+    event.stopPropagation();
     appWindow.startDragging();
   }
 
   // Use "onClick" on buttons and call the 3 functions above
   return (
     <>
-      <div data-tauri-drag-region style={{ height: '30px', width: '100%'}} onMouseDown={startDragging}>
+      <div data-tauri-drag-region className="midnight h-[30px] bg-neutral-2200" onMouseDown={startDragging}>
       </div>
     </>
   )
