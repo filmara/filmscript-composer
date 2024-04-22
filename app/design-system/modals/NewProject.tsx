@@ -34,8 +34,21 @@ export const NewProject: React.FunctionComponent<NewProjectType> = () => {
               label: 'Name',
               placeholder: 'Untitled',
               required: true,
-            }
+            },
           },
+          {
+            field: {
+              type: 'radiobox',
+              id: 'template',
+              variant: 'card',
+              options: [
+                { name: 'Empty Page', value: '1', description: "this is a description" },
+                { name: 'Import Fountain', value: '2' },
+                { name: 'Example Script', value: '3' },
+              ],
+              required: true,
+            },
+          }
         ]}
         button={{ text: "Create", variant: 'neutral' }}
       />

@@ -23,17 +23,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
+      <ProjectProvider>
       <TitleBar />
       <body className="midnight overflow-hidden">
-        <ProjectProvider>
           <ModalProvider>
             {children}
           </ModalProvider>
-        </ProjectProvider>
 
         <ScrollRestoration />
         <Scripts />
       </body>
+      </ProjectProvider>
     </html>
   );
 }

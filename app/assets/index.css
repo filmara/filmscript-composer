@@ -2580,6 +2580,10 @@ select {
   border-radius: 0.375rem;
 }
 
+.rounded-sm {
+  border-radius: 0.125rem;
+}
+
 .rounded-xl {
   border-radius: 0.75rem;
 }
@@ -2740,8 +2744,16 @@ select {
   border-color: var(--color-neutral-1000);
 }
 
+.border-neutral-1200 {
+  border-color: var(--color-neutral-1200);
+}
+
 .border-neutral-1400 {
   border-color: var(--color-neutral-1400);
+}
+
+.border-neutral-1500 {
+  border-color: var(--color-neutral-1500);
 }
 
 .border-neutral-1600 {
@@ -4539,6 +4551,10 @@ body {
   text-align: left;
 }
 
+.screenplay>.transition {
+  color: h
+}
+
 .underline {
   text-decoration: underline;
 }
@@ -4723,6 +4739,10 @@ body {
   background-color: var(--color-neutral-100);
 }
 
+.hover\:bg-neutral-1400:hover {
+  background-color: var(--color-neutral-1400);
+}
+
 .hover\:bg-neutral-1600:hover {
   background-color: var(--color-neutral-1600);
 }
@@ -4771,6 +4791,10 @@ body {
   fill: var(--color-black);
 }
 
+.hover\:font-bold:hover {
+  font-weight: 700;
+}
+
 .hover\:text-green-100:hover {
   color: var(--color-green-100);
 }
@@ -4792,6 +4816,10 @@ body {
   color: var(--color-neutral-2000);
 }
 
+.hover\:text-neutral-2200:hover {
+  color: var(--color-neutral-2200);
+}
+
 .hover\:text-neutral-400:hover {
   color: var(--color-neutral-400);
 }
@@ -4806,10 +4834,6 @@ body {
 
 .hover\:text-primary-2400:hover {
   color: var(--color-primary-2400);
-}
-
-.hover\:text-primary-2700:hover {
-  color: var(--color-primary-2700);
 }
 
 .hover\:text-red-100:hover {
@@ -4833,12 +4857,6 @@ body {
   outline-offset: 2px;
 }
 
-.hover\:ring-\[1px\]:hover {
-  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
-  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
-}
-
 .hover\:ring-\[2px\]:hover {
   --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
   --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
@@ -4851,10 +4869,6 @@ body {
 
 .hover\:ring-primary-1400:hover {
   --tw-ring-color: var(--color-primary-1400);
-}
-
-.hover\:ring-primary-200:hover {
-  --tw-ring-color: var(--color-primary-200);
 }
 
 .hover\:ring-secondary-1000:hover {

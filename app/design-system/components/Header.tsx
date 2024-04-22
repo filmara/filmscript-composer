@@ -10,7 +10,7 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
   const { setProject, project } = useProject();
   if (!project) return
   return (
-    <div className='h-[2vh] bg-neutral-2000'>
+    <div className='h-[2vh] bg-neutral-2200'>
       <div className="px-2 text-p3-light text-neutral-600 inline-block">{project.name}</div>
       <Dropdown
         direction="left-bottom"

@@ -1,7 +1,7 @@
 {
   "name": "filmscript-composer",
-  "private": true,
-  "version": "0.0.14-7298455bdc95",
+  "private": false,
+  "version": "0.0.14-7d003f680169",
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -16,7 +16,7 @@
     "preview": "vite preview",
     "typecheck": "tsc",
     "tauri": "tauri",
-    "reversion": "node ./scripts/reversion.cjs"
+    "pull-request": "node ./scripts/pull-request.cjs"
   },
   "dependencies": {
     "@h6s/calendar": "^2.0.1",
