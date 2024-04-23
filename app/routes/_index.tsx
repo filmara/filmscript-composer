@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "~/design-system";
 import { useModal, useProject } from '~/context';
 import { fetchProjects } from '~/utils';
-
+import { NewProject } from "~/design-system";
 export default function Index() {
   const { openModal } = useModal();
 
@@ -39,8 +39,9 @@ export default function Index() {
             size: 'medium'
           })} />
         </div>
-
+          
       </div>
+      <NewProject />
     </div>
   );
 }
