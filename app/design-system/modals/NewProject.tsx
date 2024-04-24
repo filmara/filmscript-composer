@@ -13,7 +13,9 @@ export const NewProject: React.FunctionComponent<NewProjectType> = () => {
   const { setProject } = useProject()
 
   const afterSubmit = async (event: FormOutput) => {
+    console.log('event', event)
     const formData = findValuesByIds(event, ['project_name', 'initial_config', 'fountain_file']);
+    
     const { project_name, initial_config, fountain_file } = formData;
 
     if (!project_name) {
@@ -54,6 +56,7 @@ export const NewProject: React.FunctionComponent<NewProjectType> = () => {
       const fountain = new FountainSlate(text)
       const parsed = fountain.parse()
       console.log('parsed', parsed)
+      return { value: JSON.stringify(parsed) };
       // const parsedData = parseFountainToSlate(text);  // Assuming `parseFountainToSlate` is your parser function
       // setData(parsedData);
     }
@@ -95,7 +98,7 @@ export const NewProject: React.FunctionComponent<NewProjectType> = () => {
           },
           {
             field: {
-              type: 'upload',
+              type: 'file_reader',
               id: 'fountain_file',
               label: 'File',
               uploadFile: uploadFile,
