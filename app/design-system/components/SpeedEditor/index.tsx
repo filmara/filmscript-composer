@@ -10,8 +10,6 @@ interface SpeedEditorProps {
 }
 
 const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
-    console.log('projectId', projectId)
-
     return (
         <EditorProvider projectId={projectId}>
             <Editor projectId={projectId} />
