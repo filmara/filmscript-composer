@@ -41,7 +41,7 @@ export default function Index() {
         </div>
           
       </div>
-      <NewProject />
+      {/* <NewProject /> */}
     </div>
   );
 }

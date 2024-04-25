@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 @layer base {
     .text-display-bold {
         @apply text-[72.2px] font-bold;
@@ -507,7 +506,7 @@ body {
 
 .screenplay>.scene_heading::before {
     content: attr(data-scene-number);
-    width: 32px;
+    width: 64px;
     display: inline-block;
     font-weight: bold;
     padding-right: 32px;
