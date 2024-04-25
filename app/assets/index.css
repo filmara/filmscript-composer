@@ -4575,7 +4575,7 @@ body {
 
 .screenplay>.scene_heading::before {
   content: attr(data-scene-number);
-  width: 32px;
+  width: 64px;
   display: inline-block;
   font-weight: bold;
   padding-right: 32px;

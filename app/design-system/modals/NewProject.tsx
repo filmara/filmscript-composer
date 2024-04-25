@@ -36,13 +36,13 @@ export const NewProject: React.FunctionComponent<NewProjectType> = () => {
         initialText = emptyPage;
         break;
       case 'import_fountain':
-        initialText = emptyPage;
+        initialText = JSON.parse(String(fountain_file));
         break;
       default:
         alert('Invalid configuration selected.');
         return;
     }
-
+    console.log("initialText", initialText)
     await splitAndSaveScenes(Number(id), initialText);
     setProject({ id, name });
     closeModal();
