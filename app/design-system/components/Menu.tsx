@@ -28,7 +28,7 @@ export const Menu: React.FC<MenuProps> = ({}) => {
 
   const buttonLabels = ['Script', 'Story']
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-neutral-2400 h-[8vh] flex justify-center items-center">
+    <div className="fixed border-t border-neutral-1700 bottom-0 left-0 right-0 bg-neutral-2400 h-[8vh] flex justify-center items-center">
       {buttonLabels.map(label => (
         <Button key={label} text={label} onClick={() => navigate(`/${label}`)} />
       ))}
