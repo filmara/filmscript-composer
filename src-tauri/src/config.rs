@@ -1,1 +1,2 @@
-pub const DATABASE_PATH: &str = "../database/app.db";
+pub const DATABASE_PATH: &str = "./database.db";
+
