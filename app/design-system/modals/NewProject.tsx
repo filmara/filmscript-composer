@@ -13,7 +13,6 @@ export const NewProject: React.FunctionComponent<NewProjectType> = () => {
   const { setProject } = useProject()
 
   const afterSubmit = async (event: FormOutput) => {
-    console.log('event', event)
     const formData = findValuesByIds(event, ['project_name', 'initial_config', 'fountain_file']);
     
     const { project_name, initial_config, fountain_file } = formData;

@@ -16,6 +16,7 @@ pub fn setup_database() -> SqlResult<()> {
         project_id INTEGER,
         data BLOB,
         \"order\" INTEGER,
+        cover_url TEXT,
         created_at TEXT,
         updated_at TEXT,
         FOREIGN KEY(project_id) REFERENCES projects(id)
@@ -25,6 +26,7 @@ pub fn setup_database() -> SqlResult<()> {
         id INTEGER PRIMARY KEY,
         scene_id INTEGER,
         description TEXT,
+        image_url TEXT,
         shot_size TEXT,
         camera_angle TEXT,
         camera_movement TEXT,

@@ -24,7 +24,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <ProjectProvider>
-      <TitleBar />
+      <TitleBar  />
       <body className="midnight overflow-hidden">
           <ModalProvider>
             {children}
