@@ -16,7 +16,7 @@ const StatusBar: React.FC<StatusBarProps> = ({ projectId }) => {
     };
 
     // Set up an interval for auto-saving every 5 seconds
-    const autoSaveInterval = setInterval(handleAutoSave, 5000);
+    const autoSaveInterval = setInterval(handleAutoSave, 50000);
 
     // Cleanup function to clear the interval when the component unmounts
     return () => clearInterval(autoSaveInterval);

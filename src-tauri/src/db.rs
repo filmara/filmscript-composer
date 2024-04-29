@@ -6,7 +6,7 @@ pub fn setup_database() -> SqlResult<()> {
     conn.execute_batch(
         "
     CREATE TABLE IF NOT EXISTS projects (
-        id INTEGER PRIMARY KEY,
+        id TEXT PRIMARY KEY,
         name TEXT NOT NULL,
         last_modified TEXT NOT NULL
     );
@@ -15,6 +15,7 @@ pub fn setup_database() -> SqlResult<()> {
         id INTEGER PRIMARY KEY,
         project_id INTEGER,
         data BLOB,
+        title TEXT,
         \"order\" INTEGER,
         cover_url TEXT,
         created_at TEXT,
