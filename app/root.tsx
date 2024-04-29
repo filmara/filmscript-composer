@@ -7,7 +7,7 @@ import {
 } from "@remix-run/react";
 import styleUrl from '~/assets/index.css?url';
 import { TitleBar } from '~/design-system/components';
-import { ProjectProvider, ModalProvider } from "./context";
+import { ProjectProvider, ModalProvider, FileSystemProvider } from "./context";
 
 export const links = () => {
   return [{ rel: 'stylesheet', href: "https://use.typekit.net/vkh2lev.css" },
@@ -23,17 +23,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
       </head>
-      <ProjectProvider>
-      <TitleBar  />
-      <body className="midnight overflow-hidden">
-          <ModalProvider>
-            {children}
-          </ModalProvider>
+      <FileSystemProvider>
+        <ProjectProvider>
+          <TitleBar />
+          <body className="midnight overflow-hidden">
+            <ModalProvider>
+              {children}
+            </ModalProvider>
 
-        <ScrollRestoration />
-        <Scripts />
-      </body>
-      </ProjectProvider>
+            <ScrollRestoration />
+            <Scripts />
+          </body>
+        </ProjectProvider>
+      </FileSystemProvider>
     </html>
   );
 }

@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 import { Menu, Header } from '~/design-system/components';
-import { Button } from '~/design-system';
-import { useProject } from "~/context";
-import { getScenes, updateScenePrompts } from '~/utils'
+import { Button, Image } from '~/design-system';
+import { useProject, useFileSystem } from "~/context";
+import { getScenes, processScenes, downloadImage } from '~/utils'
 
 export default function Writer() {
   const { project } = useProject()
   if (!project) return;
   console.log("project", project)
   const [scenes, setScenes]: any = useState()
+  const { resourceDir, createProjectsFolder, readFile } = useFileSystem();
   useEffect(() => {
     (async () => {
       const data = await getScenes(Number(project.id))
@@ -16,12 +17,15 @@ export default function Writer() {
     })()
   }, [])
   console.log("scenes", scenes)
+  console.log("resourceDir", resourceDir)
   return (
     <div>
       <Header />
       <div className="w-[842px] mx-auto ">
-        <Button text="Update" onClick={() => updateScenePrompts(Number(project.id))}/>
-
+        <Button text="processScenes" onClick={() => processScenes(Number(project.id))}/>
+        <Button text="Download" onClick={() => downloadImage(Number(project.id))}/>
+        <Button text="readFile" onClick={() => readFile()}/>
+        {/* <Image  /> */}
         <div className="grid grid-cols-3 gap-4 place-items-center">
           {scenes && scenes.map((scene: any) => {
             return <div className="bg-neutral-1200 h-[64px] w-full">{scene.id}</div>

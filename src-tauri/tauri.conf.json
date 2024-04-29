@@ -12,6 +12,13 @@
   },
   "tauri": {
     "allowlist": {
+      "fs": {
+        "all": true,
+        "scope": ["$APPDATA/*/**"]
+      },
+      "path": {
+        "all": true
+      },
       "all": false,
       "window": {
         "startDragging": true
@@ -41,7 +48,6 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [],
       "shortDescription": "",
       "targets": "all",
       "windows": {
