@@ -3,12 +3,13 @@ import { writeTextFile, createDir, BaseDirectory, readBinaryFile } from '@tauri-
 import { DBSchema, IDBPDatabase, openDB } from 'idb';
 
 // Define the interface for the context
-interface FileSystemContextType {
+export interface FileSystemContextType {
     resourceDir: string | null;
     writeFile: () => void;
     createProjectsFolder: () => void;
     readFile: () => void;
-    readFileAndStore: (filePath: string, fileName: string) => void;
+    readFileAndStore: (filePath: string, fileName: string) => string;
+    getImage: (name: string) => string;
 }
 
 interface ImageDB extends DBSchema {
@@ -87,7 +88,7 @@ export const FileSystemProvider: React.FC<FileSystemProviderProps> = ({ children
             console.log('Reading file:', filePath);
             const binaryData = await readBinaryFile(filePath, { dir: BaseDirectory.AppData });
             const blob = new Blob([binaryData], { type: 'image/png' }); // Adjust the MIME type based on your image
-
+            console.log("binaryData", binaryData)
             // Store the Blob in IndexedDB
             await storeImage(blob, fileName);
 
@@ -138,7 +139,8 @@ export const FileSystemProvider: React.FC<FileSystemProviderProps> = ({ children
         writeFile,
         createProjectsFolder,
         readFile,
-        readFileAndStore
+        readFileAndStore,
+        getImage
     };
 
     return (

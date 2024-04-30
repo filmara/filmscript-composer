@@ -6,7 +6,7 @@ type Project = {
   name: string;
 } | null
 
-interface ProjectContextType {
+export interface ProjectContextType {
   project: Project
   setProject: (project: Project) => void;
 }
