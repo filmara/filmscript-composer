@@ -27,7 +27,7 @@ export const EditorProvider: React.FC<EditorProviderProps> = ({ children, projec
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const sceneData = await loadScenes(Number(projectId));  // Make sure to convert projectId to number correctly
+        const sceneData = await loadScenes(projectId);  // Make sure to convert projectId to number correctly
         if (sceneData) {
           setValue(sceneData);  // Set the fetched data
         }
@@ -41,7 +41,6 @@ export const EditorProvider: React.FC<EditorProviderProps> = ({ children, projec
     fetchData();
   }, [projectId]);  // Depend on projectId to re-run the effect when it changes
   
-  console.log('value', value)
   return (
     <EditorContext.Provider value={{ value, setValue, loaded }}>
       {children}

@@ -13,7 +13,7 @@ pub fn setup_database() -> SqlResult<()> {
     
     CREATE TABLE IF NOT EXISTS scenes (
         id INTEGER PRIMARY KEY,
-        project_id INTEGER,
+        project_id TEXT,
         data BLOB,
         title TEXT,
         \"order\" INTEGER,
