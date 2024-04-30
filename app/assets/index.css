@@ -1368,6 +1368,11 @@ select {
   margin-right: auto;
 }
 
+.my-8 {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
 .my-\[20px\] {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -1735,6 +1740,10 @@ select {
 
 .h-\[8vh\] {
   height: 8vh;
+}
+
+.h-\[full\] {
+  height: full;
 }
 
 .h-fit {

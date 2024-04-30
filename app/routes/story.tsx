@@ -1,35 +1,60 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Menu, Header } from '~/design-system/components';
-import { Button, Image } from '~/design-system';
+import { Button } from '~/design-system';
 import { useProject, useFileSystem } from "~/context";
-import { getScenes, processScenes, downloadImage } from '~/utils'
+import { getScenes, downloadImage } from '~/utils';
+import { FileSystemContextType, ProjectContextType } from '~/context';
 
-export default function Writer() {
-  const { project } = useProject()
-  if (!project) return;
-  console.log("project", project)
-  const [scenes, setScenes]: any = useState()
-  const { resourceDir, createProjectsFolder, readFile } = useFileSystem();
+export default function Story() {
+  const { project } = useProject() as ProjectContextType;
+  const { getImage, readFileAndStore } = useFileSystem() as FileSystemContextType;
+  const [scenes, setScenes]: any = useState([]);
+
   useEffect(() => {
-    (async () => {
-      const data = await getScenes(project.id)
-      setScenes(data);
-    })()
-  }, [])
-  console.log("scenes", scenes)
-  console.log("resourceDir", resourceDir)
+    const fetchScenes = async () => {
+      if (!project?.id) return;
+      const scenesData: any = await getScenes(project.id);
+      const scenesWithImages = await Promise.all(scenesData.map(async (scene: any) => {
+        const shoots = await Promise.all(scene.shoots.map(async (shoot: any) => {
+          // Only attempt to load images if image_url exists
+          let imageUrl = '';
+          if (shoot.image_url) {
+            imageUrl = await readFileAndStore(shoot.image_url, shoot.description);
+          }
+          return { ...shoot, imageUrl };
+        }));
+        return { ...scene, shoots };
+      }));
+      setScenes(scenesWithImages);
+    };
+
+    if (project) {
+      fetchScenes();
+    }
+  }, [project]);
+
   return (
     <div>
       <Header />
-      <div className="w-[842px] mx-auto ">
-        <Button text="processScenes" onClick={() => processScenes(project.id)}/>
-        <Button text="Download" onClick={() => downloadImage(project.id, Number(1))}/>
-        <Button text="readFile" onClick={() => readFile()}/>
-        {/* <Image  /> */}
-        <div className="grid grid-cols-3 gap-4 place-items-center">
-          {scenes && scenes.map((scene: any) => {
-            return <div className="bg-neutral-1200 h-[64px] w-full">{scene.id}</div>
-          })}
+      <div className="overflow-y-auto h-[88vh]">
+        <div className="w-[842px] mx-auto">
+          <div className="">
+            {scenes.map((scene: any) => (
+              <div key={scene.id} className="bg-neutral-400 my-8 h-[full] w-full">
+                <div>{scene.title}</div>
+
+                <div>
+                  {scene.shoots.map((shoot: any, key: number) => (
+                    <div>
+                      {shoot.description}
+                      <img key={key} src={shoot.imageUrl} alt="Shoot" />
+                      <Button text="Download" variant="outline" size="tiny" onClick={() => downloadImage(project.id, Number(shoot.id))} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       <Menu />
