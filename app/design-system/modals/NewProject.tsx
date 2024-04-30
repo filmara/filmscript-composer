@@ -42,7 +42,7 @@ export const NewProject: React.FunctionComponent<NewProjectType> = () => {
         return;
     }
     console.log("initialText", initialText)
-    await splitAndSaveScenes(Number(id), initialText);
+    await splitAndSaveScenes(id, initialText);
     setProject({ id, name });
     closeModal();
   };

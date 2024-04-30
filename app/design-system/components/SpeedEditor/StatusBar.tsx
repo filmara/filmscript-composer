@@ -11,7 +11,7 @@ const StatusBar: React.FC<StatusBarProps> = ({ projectId }) => {
 
   useEffect(() => {
     const handleAutoSave = async () => {
-      splitAndSaveScenes(Number(projectId), value)
+      splitAndSaveScenes(projectId, value)
       // console.log('Auto-saving content:', value);
     };
 
