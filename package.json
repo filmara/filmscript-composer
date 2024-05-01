@@ -1,7 +1,7 @@
 {
   "name": "filmscript-composer",
   "private": false,
-  "version": "0.0.16-567bc8e125ce",
+  "version": "0.0.16-d7618e988d78",
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -36,6 +36,7 @@
     "dayzed": "^3.2.3",
     "framer-motion": "^11.0.20",
     "idb": "^8.0.0",
+    "lottie-web": "^5.12.2",
     "luxon": "^3.4.4",
     "qrcode-generator": "^1.4.4",
     "rci": "^0.1.0",

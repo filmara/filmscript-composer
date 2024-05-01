@@ -20,7 +20,6 @@ export {
     Image,
     Input,
     Layout,
-    Loader,
     List,
     Modal,
     Notification,
@@ -46,4 +45,5 @@ export {
     Checkbox,
     type FieldProps,
   } from './shared';
+  export { Loader } from './components';
   export { NewProject } from './modals'

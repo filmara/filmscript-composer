@@ -3,7 +3,7 @@ import { Descendant, createEditor, Transforms, Editor, Node, Range, Path } from 
 import { ReactEditor, Slate, Editable, withReact, RenderElementProps, useSlateStatic } from 'slate-react';
 import { Popover } from '@headlessui/react';
 import { FountainTypes, FountainNode, CustomText } from './types';
-import { Dropdown } from '~/design-system';
+import { Dropdown, Loader } from '~/design-system';
 import { optionsForNodeType, nodeTypes, textExample } from './constants';
 import { assignSceneNumbers } from './functions'
 import { debugLog } from '~/utils'
@@ -12,6 +12,7 @@ import { useEditor } from './context';
 interface SpeedEditorProps {
     projectId: string;
 }
+
 
 const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
 
@@ -182,10 +183,10 @@ const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
             const wordBefore = Editor.before(editor, start, { unit: 'word' });
             const beforeRange = wordBefore && Editor.range(editor, wordBefore, start);
             const beforeText = beforeRange && Editor.string(editor, beforeRange);
-    
+
             const scenePrefixes = ['INT.', 'EXT.'];
             const transitionPrefix = '>';
-    
+
             if (scenePrefixes.includes(beforeText)) {
                 Transforms.setNodes(editor, { type: 'scene_heading', prefix: beforeText }, { at: selection.focus.path });
                 Transforms.delete(editor, { at: beforeRange });
@@ -196,7 +197,7 @@ const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
             }
         }
     };
-    
+
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
         console.log("event.key", event.key)
@@ -323,9 +324,9 @@ const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
     };
 
     if (!loaded) {
-        return <div>Loading...</div>; // or any other loading indicator
+        return <Loader />; // or any other loading indicator
     }
-    
+
     return (
         <Slate editor={editor} initialValue={value} onChange={handleEditorChange} key={projectId}>
             <Editable
