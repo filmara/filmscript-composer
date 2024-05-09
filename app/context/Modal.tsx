@@ -81,7 +81,7 @@ export const ModalProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     >
       {children}
       <ModalComponent
-        theme="midnight"
+        theme="light"
         initialState={isOpen}
         closeModal={closeModal}
         padding={state.padding}

@@ -96,7 +96,7 @@ module.exports = {
     'text-footer-bold',
     'text-footer-underlined',
     'text-footer-light',
-    'text-footer-bold-underlined'
+    'text-footer-bold-underlined',
   ],
   theme: {
     colors: {

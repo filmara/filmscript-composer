@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 import { Descendant } from 'slate';
 import { loadScenes } from '~/utils';
 import { emptyPage } from './constants';
+import { Loader } from '~/design-system';
 
 // Define the type for the editor context
 interface EditorContextType {
@@ -22,7 +23,7 @@ interface EditorProviderProps {
 export const EditorProvider: React.FC<EditorProviderProps> = ({ children, projectId }) => {
 
   const [value, setValue] = useState<Descendant[]>(emptyPage);
-  const [loaded, setLoaded] = useState(false);
+  const [loaded, setLoaded] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,16 +32,23 @@ export const EditorProvider: React.FC<EditorProviderProps> = ({ children, projec
         if (sceneData) {
           setValue(sceneData);  // Set the fetched data
         }
-        setLoaded(true);  // Set loaded to true after fetching
+        setTimeout(() => {
+          setLoaded(false)
+        }, 2000)
+        // Set loaded to true after fetching
       } catch (error) {
         console.error('Failed to fetch scenes', error);
         setLoaded(false);  // Consider setting loaded to false in case of error
       }
     };
-  
+
     fetchData();
   }, [projectId]);  // Depend on projectId to re-run the effect when it changes
-  
+
+  if (loaded) {
+    return <div className="h-[88vh] w-full flex justify-center"><Loader /></div>
+  }
+
   return (
     <EditorContext.Provider value={{ value, setValue, loaded }}>
       {children}

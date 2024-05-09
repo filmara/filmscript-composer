@@ -23,7 +23,7 @@ const StatusBar: React.FC<StatusBarProps> = ({ projectId }) => {
   }, [value]);
 
   return (
-    <div className="bg-neutral-2200 h-[2vh] text-neutral-900 text-footer-light">
+    <div className="h-[2vh] text-neutral-900 text-footer-light">
     </div>
   );
 };

@@ -10,8 +10,8 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
   const { setProject, project } = useProject();
   if (!project) return
   return (
-    <div className='h-[32px] bg-neutral-2200 border-b border-neutral-2700'>
-      <div className="px-2 text-p3-light text-neutral-600 inline-block">{project.name}</div>
+    <div className='h-[32px] bg-neutral-200 border-b border-neutral-1200'>
+      {/* <div className="px-2 text-p3-light text-neutral-600 inline-block">{project.name}</div>
       <Dropdown
         direction="left-bottom"
         button={{
@@ -24,7 +24,7 @@ export const Header: React.FC<HeaderProps> = ({ }) => {
           // { text: 'Save Project', type: 'button', action: () => splitAndSaveScenes(project.id, ) },
           { text: 'Close', type: 'button', action: () => setProject(null) }
         ]}
-      />
+      /> */}
 
     </div>
   );

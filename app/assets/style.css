@@ -171,11 +171,11 @@
 }
 
 .bt-primary-default {
-    background-image: linear-gradient(90deg, #DADEF3 0%, #CBD4DC 99.7%)
+    background-image: linear-gradient(130deg, #eedbb782 10%, #dcb76e 99.7%)
 }
 
 .bt-secondary-default {
-    background-image: linear-gradient(270deg, #717E8B 0.49%, #626D79 98.93%);
+    background-image: linear-gradient(130deg, #AB455E 10%, #6A0A22 98.93%);
 }
 
 .bt-neutral-default {
@@ -198,8 +198,8 @@
     --color-primary-1100: #62A0C4;
     --color-primary-1200: #5999BE;
     --color-primary-1300: #5092B8;
-    --color-primary-1400: #488CB2;
-    --color-primary-1500: #4085AD;
+    --color-primary-1400: #F3CF89;
+    --color-primary-1500: #F3CF89;
     --color-primary-1600: #397FA7;
     --color-primary-1700: #3278A1;
     --color-primary-1800: #2B729B;
@@ -244,7 +244,7 @@
     --color-tertiary-100: #FFF6E4;
     --color-tertiary-200: #FCEAC9;
     --color-tertiary-300: #F3CF89;
-    --color-tertiary-400: #E9B041;
+    --color-tertiary-400: #e1b866;
     --color-tertiary-500: #D59414;
     --color-tertiary-600: #B47A09;
     --color-tertiary-700: #724C03;
@@ -429,42 +429,27 @@
 body {
     padding: 0;
     margin: 0;
-    background-color: #1e1e1e;
+    background-color: #e0e0e0;
     caret-color: #1f75e6;
 
 }
 
-.loader {
-    width: 100px;
-    height: 100px;
+.box {
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    background-image: linear-gradient(0deg, #84fab0 0%, #8fd3f4 100%);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    animation: rotate 2s linear infinite;
+    background: #fd7702;
 }
 
-/* Animation keyframes for smoothly rotating the gradient clockwise */
-@keyframes rotate {
-    from {
-        transform: translate(-50%, -50%) rotate(0deg);
-    }
-
-    to {
-        transform: translate(-50%, -50%) rotate(360deg);
-    }
-}
 
 .screenplay {
     width: 842px;
-    color: #bcbcbc;
-    background-color: #2d2d2d;
+    color: #070707;
+    background-color: #f7f4ed;
     outline: none;
     margin: 0px auto;
     /* Updated to consolidate the margin property */
-    padding: 20px 20px 20px 74px;
+    padding: 20px 20px 20px 44px;
     border: 0;
     font-size: 12pt;
     /* Consolidated font-size property */

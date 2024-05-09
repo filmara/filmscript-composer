@@ -7,9 +7,9 @@ export default function Writer() {
 
   return (
     <div>
-        <Header />
+        {/* <Header /> */}
         <SpeedEditor projectId={project.id} />
-        <Menu />
+        {/* <Menu /> */}
     </div>
   );
 }
