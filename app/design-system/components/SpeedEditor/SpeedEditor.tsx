@@ -18,7 +18,7 @@ const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
 
     const editor = useMemo(() => withReact(createEditor()), []);
     // Initialize with an empty editor or default content
-    const { value, setValue, loaded } = useEditor();
+    const { value, setValue } = useEditor();
     // const [value, setValue] = useState<Descendant[]>(textExample);
     const updateCurrentNodePrefix = (editor: Editor, newPrefix: string) => {
         const { selection } = editor;
@@ -53,7 +53,7 @@ const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
                         <Dropdown
                             direction="left-bottom"
                             button={{
-                                variant: 'primary',
+                                variant: 'outline',
                                 size: 'tiny',
                                 text: prefix,
                                 onClick: (event) => handleButtonClick(event, path)
@@ -322,10 +322,6 @@ const SpeedEditor: React.FC<SpeedEditorProps> = ({ projectId }) => {
             }
         }
     };
-
-    if (!loaded) {
-        return <Loader />; // or any other loading indicator
-    }
 
     return (
         <Slate editor={editor} initialValue={value} onChange={handleEditorChange} key={projectId}>

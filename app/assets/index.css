@@ -1177,6 +1177,10 @@ select {
   left: 0px;
 }
 
+.left-1\/2 {
+  left: 50%;
+}
+
 .left-4 {
   left: 1rem;
 }
@@ -1195,6 +1199,10 @@ select {
 
 .top-3\.5 {
   top: 0.875rem;
+}
+
+.top-8 {
+  top: 2rem;
 }
 
 .isolate {
@@ -2065,6 +2073,11 @@ select {
   transform-origin: top right;
 }
 
+.-translate-x-1\/2 {
+  --tw-translate-x: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .-translate-y-1 {
   --tw-translate-y: -0.25rem;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
@@ -2789,16 +2802,16 @@ select {
   border-color: var(--color-neutral-1000);
 }
 
+.border-neutral-1100 {
+  border-color: var(--color-neutral-1100);
+}
+
 .border-neutral-1200 {
   border-color: var(--color-neutral-1200);
 }
 
 .border-neutral-1400 {
   border-color: var(--color-neutral-1400);
-}
-
-.border-neutral-1500 {
-  border-color: var(--color-neutral-1500);
 }
 
 .border-neutral-1600 {
@@ -2815,10 +2828,6 @@ select {
 
 .border-neutral-200 {
   border-color: var(--color-neutral-200);
-}
-
-.border-neutral-2700 {
-  border-color: var(--color-neutral-2700);
 }
 
 .border-neutral-300 {
@@ -3268,8 +3277,8 @@ select {
   background-image: linear-gradient(to top right, var(--tw-gradient-stops));
 }
 
-.from-neutral-2700 {
-  --tw-gradient-from: var(--color-neutral-2700) var(--tw-gradient-from-position);
+.from-neutral-200 {
+  --tw-gradient-from: var(--color-neutral-200) var(--tw-gradient-from-position);
   --tw-gradient-to: rgb(255 255 255 / 0) var(--tw-gradient-to-position);
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
 }
@@ -3393,6 +3402,11 @@ select {
 .px-1 {
   padding-left: 0.25rem;
   padding-right: 0.25rem;
+}
+
+.px-12 {
+  padding-left: 3rem;
+  padding-right: 3rem;
 }
 
 .px-2 {
@@ -3967,8 +3981,16 @@ select {
   color: var(--color-neutral-1600);
 }
 
+.text-neutral-1700 {
+  color: var(--color-neutral-1700);
+}
+
 .text-neutral-1800 {
   color: var(--color-neutral-1800);
+}
+
+.text-neutral-1900 {
+  color: var(--color-neutral-1900);
 }
 
 .text-neutral-200 {
@@ -4306,11 +4328,11 @@ select {
 }
 
 .bt-primary-default {
-  background-image: linear-gradient(90deg, #DADEF3 0%, #CBD4DC 99.7%)
+  background-image: linear-gradient(130deg, #eedbb782 10%, #dcb76e 99.7%)
 }
 
 .bt-secondary-default {
-  background-image: linear-gradient(270deg, #717E8B 0.49%, #626D79 98.93%);
+  background-image: linear-gradient(130deg, #AB455E 10%, #6A0A22 98.93%);
 }
 
 .bt-neutral-default {
@@ -4331,8 +4353,8 @@ select {
   --color-primary-1100: #62A0C4;
   --color-primary-1200: #5999BE;
   --color-primary-1300: #5092B8;
-  --color-primary-1400: #488CB2;
-  --color-primary-1500: #4085AD;
+  --color-primary-1400: #F3CF89;
+  --color-primary-1500: #F3CF89;
   --color-primary-1600: #397FA7;
   --color-primary-1700: #3278A1;
   --color-primary-1800: #2B729B;
@@ -4375,7 +4397,7 @@ select {
   --color-tertiary-100: #FFF6E4;
   --color-tertiary-200: #FCEAC9;
   --color-tertiary-300: #F3CF89;
-  --color-tertiary-400: #E9B041;
+  --color-tertiary-400: #e1b866;
   --color-tertiary-500: #D59414;
   --color-tertiary-600: #B47A09;
   --color-tertiary-700: #724C03;
@@ -4547,42 +4569,25 @@ select {
 body {
   padding: 0;
   margin: 0;
-  background-color: #1e1e1e;
+  background-color: #e0e0e0;
   caret-color: #1f75e6;
 }
 
-.loader {
-  width: 100px;
-  height: 100px;
+.box {
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
-  background-image: linear-gradient(0deg, #84fab0 0%, #8fd3f4 100%);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  animation: rotate 2s linear infinite;
-}
-
-/* Animation keyframes for smoothly rotating the gradient clockwise */
-
-@keyframes rotate {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
+  background: #fd7702;
 }
 
 .screenplay {
   width: 842px;
-  color: #bcbcbc;
-  background-color: #2d2d2d;
+  color: #070707;
+  background-color: #f7f4ed;
   outline: none;
   margin: 0px auto;
   /* Updated to consolidate the margin property */
-  padding: 20px 20px 20px 74px;
+  padding: 20px 20px 20px 44px;
   border: 0;
   font-size: 12pt;
   /* Consolidated font-size property */
@@ -4820,20 +4825,20 @@ body {
   background-color: var(--color-neutral-100);
 }
 
-.hover\:bg-neutral-1400:hover {
-  background-color: var(--color-neutral-1400);
-}
-
 .hover\:bg-neutral-1600:hover {
   background-color: var(--color-neutral-1600);
 }
 
-.hover\:bg-neutral-1900:hover {
-  background-color: var(--color-neutral-1900);
-}
-
 .hover\:bg-neutral-200:hover {
   background-color: var(--color-neutral-200);
+}
+
+.hover\:bg-neutral-400:hover {
+  background-color: var(--color-neutral-400);
+}
+
+.hover\:bg-neutral-500:hover {
+  background-color: var(--color-neutral-500);
 }
 
 .hover\:bg-primary-1400:hover {
@@ -5057,6 +5062,10 @@ body {
 
 .focus\:bg-neutral-1600:focus {
   background-color: var(--color-neutral-1600);
+}
+
+.focus\:bg-neutral-400:focus {
+  background-color: var(--color-neutral-400);
 }
 
 .focus\:bg-primary-1600:focus {

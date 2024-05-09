@@ -26,11 +26,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <FileSystemProvider>
         <ProjectProvider>
           <TitleBar />
-          <body className="midnight overflow-hidden">
+          <body className="light overflow-hidden">
             <ModalProvider>
               {children}
             </ModalProvider>
-
             <ScrollRestoration />
             <Scripts />
           </body>

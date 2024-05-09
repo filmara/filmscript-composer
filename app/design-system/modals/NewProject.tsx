@@ -64,7 +64,7 @@ export const NewProject: React.FunctionComponent<NewProjectType> = () => {
   return (
     <div className="flex flex-col space-y-4">
       <div>
-        <div className="text-subheading-bold text-neutral-100">New Project</div>
+        <div className="text-subheading-bold text-neutral-2700">New Project</div>
       </div>
       <Form
         debug={false}
