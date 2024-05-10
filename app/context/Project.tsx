@@ -2,12 +2,24 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { useNavigate } from "@remix-run/react";
 import { useFileSystem, type FileSystemContextType } from './FileSystem';
 import { getScenes } from '~/utils';
-import { Loader } from '~/design-system';
 
 type Project = {
   id: string;
   name: string;
 } | null
+
+interface Shoot {
+  id: string;
+  description: string;
+  image_url?: string;
+}
+
+interface Scene {
+  id: string;
+  title: string;
+  shoots: Shoot[];
+}
+
 
 export interface ProjectContextType {
   scenes: any;
@@ -40,31 +52,31 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({ children })
       navigate('/')
     }
 
-    // const fetchScenes = async () => {
-    //   if (!project?.id) return;
-    //   const scenesData: any = await getScenes(project.id);
-    //   const scenesWithImages = await Promise.all(scenesData.map(async (scene: any) => {
-    //     const shoots = await Promise.all(scene.shoots.map(async (shoot: any) => {
-    //       // Only attempt to load images if image_url exists
-    //       let imageUrl = '';
-    //       if (shoot.image_url) {
-    //         imageUrl = await readFileAndStore(shoot.image_url, shoot.description);
-    //       }
-    //       return { ...shoot, imageUrl };
-    //     }));
-    //     return { ...scene, shoots };
-    //   }));
-    //   setScenes(scenesWithImages);
-    // };
+    const fetchScenes = async () => {
+      if (!project?.id) return;
+      const scenesData = await getScenes(project.id);
+      if (!scenesData) {
+        // Handle the case where no data is returned
+        console.error('No scenes data received');
+        return;
+      }
+      const scenesWithShoots: Scene[] = scenesData.map(scene => ({
+        ...scene,
+        shoots: scene.shoots.map(shoot => ({
+          ...shoot,
+          imageUrl: shoot.image_url || ''
+        }))
+      }));
+      setScenes(scenesWithShoots);
+    };
 
-    // if (project) {
-    //   fetchScenes();
-    // }
+    if (project) {
+      fetchScenes();
+    }
   }, [project])
 
   return (
     <ProjectContext.Provider value={{ project, scenes, closeProject, openProject }}>
-      {/* {project ? children : <div className="p-8 h-[100vh] w-full bg-neutral-200 flex justify-center"><Loader /></div>} */}
       {children}
     </ProjectContext.Provider>
   );
