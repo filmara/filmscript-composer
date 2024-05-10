@@ -8,8 +8,8 @@ export interface FileSystemContextType {
     writeFile: () => void;
     createProjectsFolder: () => void;
     readFile: () => void;
-    readFileAndStore: (filePath: string, fileName: string) => string;
-    getImage: (name: string) => string;
+    readFileAndStore: (filePath: string, fileName: string) => Promise<string>;
+    getImage: (name: string) => Promise<string>;
 }
 
 interface ImageDB extends DBSchema {
@@ -85,14 +85,11 @@ export const FileSystemProvider: React.FC<FileSystemProviderProps> = ({ children
     // Function to read a file using Tauri API and store it in IndexedDB
     const readFileAndStore = async (filePath: string, fileName: string): Promise<string> => {
         try {
-            console.log('Reading file:', filePath);
-            const binaryData = await readBinaryFile(filePath, { dir: BaseDirectory.AppData });
-            const blob = new Blob([binaryData], { type: 'image/png' }); // Adjust the MIME type based on your image
-            console.log("binaryData", binaryData)
-            // Store the Blob in IndexedDB
+            const binaryData = await readBinaryFile(filePath);
+            const blob = new Blob([binaryData], { type: 'image/png' });
             await storeImage(blob, fileName);
-
-            return await getImage(fileName); // Retrieve the image URL for display
+            const imageUrl = await getImage(fileName);
+            return imageUrl;
         } catch (error) {
             console.error('Failed to read and store file:', error);
             return Promise.reject(error);
