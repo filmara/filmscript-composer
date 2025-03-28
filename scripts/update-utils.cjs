@@ -30,3 +30,4 @@ git pull origin main
 runGitCommands(commandsToRun, () => {
   console.log('Successfully pulled the latest updates from main.');
 });
+

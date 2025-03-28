@@ -1,0 +1,1 @@
+import{j as t}from"./jsx-runtime-DwRxq3ZX.js";const s=({className:e,children:r})=>t.jsx("a",{className:e,children:r});s.__docgenInfo={description:"",methods:[],displayName:"FakeLink",props:{children:{required:!0,tsType:{name:"ReactReactNode",raw:"React.ReactNode"},description:""},className:{required:!0,tsType:{name:"string"},description:""}}};export{s as F};

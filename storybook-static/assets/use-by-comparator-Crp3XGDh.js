@@ -1,0 +1,1 @@
+import{r as l}from"./index-BX3iQpgp.js";function o(n,t){return n!==null&&t!==null&&typeof n=="object"&&typeof t=="object"&&"id"in n&&"id"in t?n.id===t.id:n===t}function f(n=o){return l.useCallback((t,u)=>{if(typeof n=="string"){let i=n;return(t==null?void 0:t[i])===(u==null?void 0:u[i])}return n(t,u)},[n])}export{f as u};
