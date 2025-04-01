@@ -10,56 +10,57 @@ type NewProjectType = {
 
 export const NewProject: React.FunctionComponent<NewProjectType> = () => {
   const { closeModal } = useModal()
-  const { setProject } = useProject()
+  const { setProject, refreshProjects } = useProject()
 
   const afterSubmit = async (event: FormOutput) => {
-    const formData = findValuesByIds(event, ['project_name', 'initial_config', 'fountain_file']);
-    
-    const { project_name, initial_config, fountain_file } = formData;
+    try {
+      const formData = findValuesByIds(event, ['project_name', 'initial_config', 'fountain_file']);
+      
+      const { project_name, initial_config, fountain_file } = formData;
 
-    if (!project_name) {
-      alert('Project name is required.');
-      return;
-    }
-
-    console.log('fountain_file', fountain_file)
-
-    const { id, name } = await createNewProject(event);
-    let initialText = emptyPage;
-
-    switch (initial_config) {
-      case 'example_script':
-        initialText = textExample;
-        break;
-      case 'empty_page':
-        initialText = emptyPage;
-        break;
-      case 'import_fountain':
-        initialText = JSON.parse(String(fountain_file));
-        break;
-      default:
-        alert('Invalid configuration selected.');
+      if (!project_name) {
+        alert('Project name is required.');
         return;
+      }
+
+      const { id, name } = await createNewProject(event);
+      let initialText = emptyPage;
+
+      switch (initial_config) {
+        case 'example_script':
+          initialText = textExample;
+          break;
+        case 'empty_page':
+          initialText = emptyPage;
+          break;
+        case 'import_fountain':
+          initialText = JSON.parse(String(fountain_file));
+          break;
+        default:
+          alert('Invalid configuration selected.');
+          return;
+      }
+
+      await splitAndSaveScenes(id, initialText);
+      setProject({ id, name });
+      await refreshProjects(); // Refresh the projects list after creating a new one
+      closeModal();
+    } catch (error) {
+      console.error('Error creating project:', error);
+      alert('Failed to create project. Please try again.');
     }
-    console.log("initialText", initialText)
-    await splitAndSaveScenes(id, initialText);
-    setProject({ id, name });
-    closeModal();
   };
 
   const uploadFile = async (e: any) => {
     if (e.target.files[0] && e.target.files[0].name.endsWith('.fountain')) {
       const file = e.target.files[0];
       const text = await file.text();
-      console.log('text', text)
       const fountain = new FountainSlate(text)
       const parsed = fountain.parse()
-      console.log('parsed', parsed)
       return { value: JSON.stringify(parsed) };
-      // const parsedData = parseFountainToSlate(text);  // Assuming `parseFountainToSlate` is your parser function
-      // setData(parsedData);
     }
-  }
+    return { value: '' };
+  };
 
   return (
     <div className="flex flex-col space-y-4">

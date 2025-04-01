@@ -1,7 +1,7 @@
 {
   "name": "filmscript-composer",
   "private": false,
-  "version": "0.0.17-0a2279cc6a8f",
+  "version": "0.0.17-d5ce0681c6ed",
   "sideEffects": false,
   "type": "module",
   "scripts": {
@@ -26,7 +26,6 @@
   },
   "dependencies": {
     "@h6s/calendar": "^2.0.1",
-    "@headlessui-float/react": "^0.13.2",
     "@headlessui/react": "^2.2.0",
     "@headlessui/tailwindcss": "latest",
     "@remix-run/node": "^2.8.1",

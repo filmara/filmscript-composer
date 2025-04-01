@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from "@remix-run/react";
 import { useFileSystem, type FileSystemContextType } from './FileSystem';
-import { getScenes } from '~/utils';
+import { getScenes, fetchProjects, deleteProject } from '~/utils';
 
 type Project = {
   id: string;
@@ -12,6 +12,7 @@ interface Shoot {
   id: string;
   description: string;
   image_url?: string;
+  imageUrl?: string;
 }
 
 interface Scene {
@@ -20,12 +21,15 @@ interface Scene {
   shoots: Shoot[];
 }
 
-
 export interface ProjectContextType {
-  scenes: any;
-  project: Project
+  scenes: Scene[];
+  project: Project;
+  projects: [number, string][];
   openProject: (project: Project) => void;
   closeProject: () => void;
+  setProject: (project: Project) => void;
+  refreshProjects: () => Promise<void>;
+  deleteCurrentProject: () => Promise<void>;
 }
 
 const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
@@ -33,18 +37,50 @@ const ProjectContext = createContext<ProjectContextType | undefined>(undefined);
 export const ProjectProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const { getImage, readFileAndStore } = useFileSystem() as FileSystemContextType;
   const [project, setProject] = useState<Project>(null);
-  const [scenes, setScenes]: any = useState([]);
+  const [scenes, setScenes] = useState<Scene[]>([]);
+  const [projects, setProjects] = useState<[number, string][]>([]);
 
   const navigate = useNavigate();
 
+  const refreshProjects = async () => {
+    try {
+      const projectData = await fetchProjects();
+      if (Array.isArray(projectData)) {
+        setProjects(projectData);
+      } else {
+        console.error('Project data is not in expected format:', projectData);
+      }
+    } catch (error) {
+      console.error('Failed to fetch projects:', error);
+    }
+  };
+
+  const deleteCurrentProject = async () => {
+    if (!project?.id) return;
+    
+    try {
+      await deleteProject(project.id);
+      closeProject();
+      await refreshProjects();
+    } catch (error) {
+      console.error('Failed to delete project:', error);
+      throw error;
+    }
+  };
+
   const openProject = (project: Project) => {
-    setProject(project)
+    setProject(project);
   }
 
   const closeProject = () => {
-    setScenes([])
-    setProject(null)
+    setScenes([]);
+    setProject(null);
   }
+
+  useEffect(() => {
+    refreshProjects();
+  }, []);
+
   useEffect(() => {
     if (project) {
       navigate('/writer')
@@ -55,14 +91,13 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({ children })
     const fetchScenes = async () => {
       if (!project?.id) return;
       const scenesData = await getScenes(project.id);
-      if (!scenesData) {
-        // Handle the case where no data is returned
-        console.error('No scenes data received');
+      if (!scenesData || !Array.isArray(scenesData)) {
+        console.error('No scenes data received or invalid format');
         return;
       }
-      const scenesWithShoots: Scene[] = scenesData.map(scene => ({
+      const scenesWithShoots: Scene[] = scenesData.map((scene: any) => ({
         ...scene,
-        shoots: scene.shoots.map(shoot => ({
+        shoots: (scene.shoots || []).map((shoot: any) => ({
           ...shoot,
           imageUrl: shoot.image_url || ''
         }))
@@ -73,10 +108,19 @@ export const ProjectProvider: React.FC<{ children: ReactNode }> = ({ children })
     if (project) {
       fetchScenes();
     }
-  }, [project])
+  }, [project]);
 
   return (
-    <ProjectContext.Provider value={{ project, scenes, closeProject, openProject }}>
+    <ProjectContext.Provider value={{ 
+      project, 
+      scenes, 
+      projects,
+      closeProject, 
+      openProject,
+      setProject,
+      refreshProjects,
+      deleteCurrentProject
+    }}>
       {children}
     </ProjectContext.Provider>
   );
